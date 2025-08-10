@@ -1,39 +1,80 @@
+import React from "react";
 import styled from "styled-components";
 import {
-  html5, css3, javascript, nodejs, Express, Mysql,
-  react, react_query, redux, styledcomponent,
-  aws, kakaomap, git, github, notion, figma
+  // Frontend
+  html5, css3, tailwind, javascript, typescript, react, next, styledcomponent,
+  // Data Fetching
+  react_query, redux,
+  // Backend
+  nodejs, Express, Mysql,
+  // Infra / API
+  aws, kakaomap,
+  // State
+  zustand,
+  // Blockchain
+  solidity,
+  // Tools
+  git, github, notion, figma,
 } from "../../assets/icons";
 
-const skillGroups = {
-  "프론트엔드": [
-    { name: "HTML5", img: html5 },
-    { name: "CSS3", img: css3 },
-    { name: "JavaScript", img: javascript },
-    { name: "React", img: react },
-    { name: "React Query", img: react_query },
-    { name: "Styled-Components", img: styledcomponent },
-  ],
-  "상태관리": [
-    { name: "Redux", img: redux },
-  ],
-  "백엔드": [
-    { name: "Node.js", img: nodejs },
-    { name: "Express", img: Express },
-    { name: "MySQL", img: Mysql },
-  ],
-  "배포 / API": [
-    { name: "AWS EC2", img: aws },
-    { name: "Kakao Map API", img: kakaomap },
-  ],
-  "협업 도구": [
-    { name: "Git", img: git },
-    { name: "GitHub", img: github },
-    { name: "Figma", img: figma },
-    { name: "Notion", img: notion },
-  ]
-};
+const SKILL_GROUPS = [
+  {
+    title: "프론트엔드",
+    items: [
+      { name: "HTML5", img: html5 },
+      { name: "CSS3", img: css3 },
+      { name: "JavaScript", img: javascript },
+      { name: "TypeScript", img: typescript },
+      { name: "React", img: react },
+      { name: "Next.js", img: next },
+      { name: "Tailwind CSS", img: tailwind },
+      { name: "Styled-Components", img: styledcomponent },
+    ],
+  },
+  {
+    title: "데이터 패칭",
+    items: [
+      { name: "React Query", img: react_query },
+    ],
+  },
+  {
+    title: "상태관리",
+    items: [
+      { name: "Zustand", img: zustand },
+      { name: "Redux", img: redux },
+    ],
+  },
+  {
+    title: "백엔드",
+    items: [
+      { name: "Node.js", img: nodejs },
+      { name: "Express", img: Express },
+      { name: "MySQL", img: Mysql },
+    ],
+  },
+  {
+    title: "배포 / API",
+    items: [
+      { name: "AWS EC2", img: aws },
+      { name: "Kakao Map API", img: kakaomap },
+    ],
+  },
+  {
+    title: "블록체인",
+    items: [{ name: "Solidity", img: solidity }],
+  },
+  {
+    title: "협업 도구",
+    items: [
+      { name: "Git", img: git },
+      { name: "GitHub", img: github },
+      { name: "Figma", img: figma },
+      { name: "Notion", img: notion },
+    ],
+  },
+];
 
+// ===== styled =====
 const Section = styled.section`
   padding: 5rem 1rem;
   background-color: #fffdf8;
@@ -71,7 +112,7 @@ const CategoryTitle = styled.h3`
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
   gap: 1.2rem;
 `;
 
@@ -84,9 +125,7 @@ const SkillCard = styled.div`
   position: relative;
   cursor: default;
 
-  &:hover {
-    transform: translateY(-5px);
-  }
+  &:hover { transform: translateY(-5px); }
 
   &:hover .tooltip {
     opacity: 1;
@@ -103,7 +142,7 @@ const Icon = styled.img`
 
 const Label = styled.p`
   font-size: 0.85rem;
-  font-weight: 500;
+  font-weight: 600;
   color: #3c2f26;
 `;
 
@@ -129,11 +168,11 @@ const SkillsSection = () => {
       <Title>기술 스택</Title>
       <Description>실무 경험 기반으로 익숙한 기술과 도구입니다</Description>
 
-      {Object.entries(skillGroups).map(([category, skills]) => (
-        <CategoryBlock key={category}>
-          <CategoryTitle>{category}</CategoryTitle>
+      {SKILL_GROUPS.map((group) => (
+        <CategoryBlock key={group.title}>
+          <CategoryTitle>{group.title}</CategoryTitle>
           <Grid>
-            {skills.map((skill) => (
+            {group.items.map((skill) => (
               <SkillCard key={skill.name}>
                 <Icon src={skill.img} alt={skill.name} />
                 <Label>{skill.name}</Label>

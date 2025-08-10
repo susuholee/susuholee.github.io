@@ -9,10 +9,11 @@ import subway from "../gif/subway.gif";
 import filter from "../gif/filter.gif";
 
 // notionary
-import category from "../gif/category.gif"
+import category from "../gif/category.gif";
+import like from "../gif/like.gif";
 import comment from "../gif/coomnet.gif";
 import post from "../gif/post.gif";
 import edit from "../gif/edit.gif"
 
 
-export {login ,signup, mypage, area, subway, filter, category, comment, post, edit}; 
+export {login ,signup, mypage, area, subway, filter, category, comment, like, post, edit}; 

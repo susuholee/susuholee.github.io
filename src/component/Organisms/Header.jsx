@@ -109,7 +109,6 @@ const Header = () => {
           <NavLink to="about" smooth={true} duration={500}>소개</NavLink>
           <NavLink to="skills" smooth={true} duration={500}>기술</NavLink>
           <NavLink to="projects" smooth={true} duration={500}>프로젝트</NavLink>
-          <NavLink to="contact" smooth={true} duration={500}>연락처</NavLink>
         </NavMenu>
       </NavInner>
     </Nav>

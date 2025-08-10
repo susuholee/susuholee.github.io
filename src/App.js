@@ -4,7 +4,6 @@ import HeroSection from "./component/Templates/HeroSection";
 import AboutSection from "./component/Templates/AboutSection.jsx";
 import SkillsSection from "./component/Templates/SkillsSection";
 import ProjectsSection from "./component/Templates/ProjectsSection";
-import ContactSection from "./component/Templates/ContactSection";
 import Footer from "./component/Organisms/Footer";
 
 const GlobalStyle = createGlobalStyle`
@@ -38,7 +37,7 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-// 💼 전체 콘텐츠 래퍼
+// 전체 콘텐츠 래퍼
 const Wrapper = styled.div`
   max-width: 1140px;
   margin: 0 auto;
@@ -56,7 +55,6 @@ function App() {
           <AboutSection />
           <SkillsSection />
           <ProjectsSection />
-          <ContactSection />
         </main>
       </Wrapper>
       <Footer />
