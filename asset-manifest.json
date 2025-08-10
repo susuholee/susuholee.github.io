@@ -1,13 +1,14 @@
 {
   "files": {
-    "main.css": "/static/css/main.22406d9b.css",
-    "main.js": "/static/js/main.2e989fe2.js",
-    "static/js/453.d4ee615e.chunk.js": "/static/js/453.d4ee615e.chunk.js",
+    "main.css": "/static/css/main.1f62b361.css",
+    "main.js": "/static/js/main.8850c428.js",
+    "static/js/453.64a0147b.chunk.js": "/static/js/453.64a0147b.chunk.js",
     "static/media/post.gif": "/static/media/post.6aa3fba49267e0df35ae.gif",
     "static/media/edit.gif": "/static/media/edit.7c706cac401ba5d3c1e0.gif",
     "static/media/coomnet.gif": "/static/media/coomnet.8b1761918a4c902beadb.gif",
     "static/media/area.gif": "/static/media/area.09c6549da1d357466e01.gif",
     "static/media/subway.gif": "/static/media/subway.5f940460d3c1e943c0f8.gif",
+    "static/media/like.gif": "/static/media/like.f507b6c5a2481941584e.gif",
     "static/media/filter.gif": "/static/media/filter.07b553e81f74d66d4fc9.gif",
     "static/media/mypage.gif": "/static/media/mypage.79d617b236d0cd83ca13.gif",
     "static/media/signup.gif": "/static/media/signup.f6e9471b01f7641c1a6a.gif",
@@ -15,18 +16,21 @@
     "static/media/notionary_logo.png": "/static/media/notionary_logo.e3a13473b4474b2bfb3a.png",
     "static/media/category.gif": "/static/media/category.127b75861a5bf3bff6cc.gif",
     "static/media/myprofile.jpg": "/static/media/myprofile.10a8769dcbbaee7865fc.jpg",
+    "static/media/react_logo.png": "/static/media/react_logo.bafc2a1dcbb5c8d3aefc.png",
     "static/media/scoop.png": "/static/media/scoop.f10b5e77387ac8931e44.png",
+    "static/media/tailwindcss.png": "/static/media/tailwindcss.54b45f9604cc9db79620.png",
     "static/media/kakaomap.png": "/static/media/kakaomap.67a4d5aec941b34b6be0.png",
-    "static/media/react.png": "/static/media/react.b79d6af90c756dd371f1.png",
+    "static/media/tistory.png": "/static/media/tistory.42ed789be263afa598e7.png",
     "static/media/html.png": "/static/media/html.2cd5d05c9660ec55992e.png",
+    "static/media/typescript.png": "/static/media/typescript.418d8e136af2ef5310c8.png",
     "static/media/notion.png": "/static/media/notion.7aa264a898951e791ee3.png",
     "index.html": "/index.html",
-    "main.22406d9b.css.map": "/static/css/main.22406d9b.css.map",
-    "main.2e989fe2.js.map": "/static/js/main.2e989fe2.js.map",
-    "453.d4ee615e.chunk.js.map": "/static/js/453.d4ee615e.chunk.js.map"
+    "main.1f62b361.css.map": "/static/css/main.1f62b361.css.map",
+    "main.8850c428.js.map": "/static/js/main.8850c428.js.map",
+    "453.64a0147b.chunk.js.map": "/static/js/453.64a0147b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.22406d9b.css",
-    "static/js/main.2e989fe2.js"
+    "static/css/main.1f62b361.css",
+    "static/js/main.8850c428.js"
   ]
 }
