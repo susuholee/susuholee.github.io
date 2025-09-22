@@ -37,7 +37,7 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-// 전체 콘텐츠 래퍼
+
 const Wrapper = styled.div`
   max-width: 1140px;
   margin: 0 auto;

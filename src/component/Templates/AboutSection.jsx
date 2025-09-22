@@ -1,86 +1,104 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { AnimatePresence, motion } from "framer-motion";
 
-const Section = styled.section`
-  padding: 5rem 1.5rem 2rem;
-  background: #ffffff;
-  min-height: 100vh;
+/* ===== Animations ===== */
+const fadeSlide = {
+  enter: { opacity: 0, y: 20 },
+  center: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  exit: { opacity: 0, y: -20, transition: { duration: 0.4 } },
+};
+
+const progressAnim = keyframes`
+  from { width: 0%; }
+  to { width: 100%; }
 `;
 
-const Notebook = styled.div`
+/* ===== Layout ===== */
+const Section = styled.section`
+  padding: 6rem 1.5rem 3rem;
+  background: linear-gradient(180deg, #fafafa, #f5f6f8);
   display: flex;
-  max-width: 960px;
-  margin: 0 auto;
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  justify-content: center;
+`;
+
+const Card = styled(motion.div)`
+  max-width: 860px;
+  width: 100%;
+  padding: 2.5rem;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+  border: 1px solid rgba(255,255,255,0.4);
+  position: relative;
   overflow: hidden;
 `;
 
-const Page = styled(motion.div)`
-  flex: 1;
-  padding: 2rem;
-  min-height: 320px;
-`;
-
-const LeftPage = styled(Page)`
-  border-right: 1px solid #eee;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* ===== Title ===== */
+const Title = styled.h3`
+  font-size: 1.35rem;
   font-weight: 700;
-  font-size: 1.4rem;
-  color: #2f3e4f;
+  margin-bottom: 1.25rem;
+  background: linear-gradient(90deg, #5c3a21, #c69b7d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 `;
 
-const RightPage = styled(Page)`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
-
+/* ===== Text ===== */
 const CardText = styled.p`
   font-size: 1rem;
-  color: #4d5c6b;
-  line-height: 1.7;
+  line-height: 1.75;
+  color: #333;
   white-space: pre-line;
+  min-height: 140px;
 `;
 
+/* ===== Navigation ===== */
 const NavButtons = styled.div`
   display: flex;
-  justify-content: space-between;
-  margin-top: 1.2rem;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
 `;
 
 const Button = styled.button`
-  background: #edf2f7;
-  border: 1px solid #d6dde5;
-  border-radius: 6px;
-  padding: 0.5rem 1rem;
-  font-size: 0.9rem;
+  background: #f3f0ee;
+  border: none;
+  border-radius: 999px;
+  padding: 0.55rem 1.1rem;
+  font-size: 0.88rem;
   font-weight: 600;
-  color: #2f3e4f;
+  color: #5c3a21;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.2s;
 
   &:hover {
-    background: #dfe6ed;
-  }
-
-  &:disabled {
-    background: #f3f6f9;
-    cursor: not-allowed;
-    opacity: 0.6;
+    background: #5c3a21;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(92,58,33,0.2);
   }
 `;
 
-const pageVariants = {
-  enter: { opacity: 0, x: 50 },
-  center: { opacity: 1, x: 0, transition: { duration: 0.5 } },
-  exit: { opacity: 0, x: -50, transition: { duration: 0.5 } },
-};
+/* ===== Progress Bar ===== */
+const ProgressBar = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  width: 100%;
+  background: rgba(0,0,0,0.08);
+
+  &:after {
+    content: "";
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, #5c3a21, #c69b7d);
+    animation: ${progressAnim} 5s linear forwards;
+    key: ${(props) => props.page};
+  }
+`;
 
 const AboutSection = () => {
   const items = [
@@ -125,48 +143,38 @@ Git 브랜치 전략, 코드리뷰, 요구사항 정리 등 협업 프로세스�
   const [page, setPage] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const timer = setInterval(() => {
       setPage((prev) => (prev + 1) % items.length);
-    }, 4500); 
-    return () => clearInterval(interval);
+    }, 5000);
+    return () => clearInterval(timer);
   }, [items.length]);
 
-  const nextPage = () => {
-    if (page < items.length - 1) setPage(page + 1);
-    else setPage(0);
-  };
-
-  const prevPage = () => {
-    if (page > 0) setPage(page - 1);
-    else setPage(items.length - 1);
-  };
+  const nextPage = () => setPage((page + 1) % items.length);
+  const prevPage = () => setPage((page - 1 + items.length) % items.length);
 
   return (
     <Section id="about">
-      <AnimatePresence mode="wait">
-        <Notebook key={page}>
-          <LeftPage
-            variants={pageVariants}
+      <Card key={page}>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={page}
+            variants={fadeSlide}
             initial="enter"
             animate="center"
             exit="exit"
           >
-            {items[page].title}
-          </LeftPage>
-          <RightPage
-            variants={pageVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-          >
+            <Title>{items[page].title}</Title>
             <CardText>{items[page].text}</CardText>
-            <NavButtons>
-              <Button onClick={prevPage}>이전</Button>
-              <Button onClick={nextPage}>다음</Button>
-            </NavButtons>
-          </RightPage>
-        </Notebook>
-      </AnimatePresence>
+          </motion.div>
+        </AnimatePresence>
+
+        <NavButtons>
+          <Button onClick={prevPage}>이전</Button>
+          <Button onClick={nextPage}>다음</Button>
+        </NavButtons>
+
+        <ProgressBar page={page} />
+      </Card>
     </Section>
   );
 };
