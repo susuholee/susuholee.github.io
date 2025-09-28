@@ -17,7 +17,6 @@ const progressAnim = keyframes`
 /* ===== Layout ===== */
 const Section = styled.section`
   padding: 6rem 1.5rem 3rem;
-  background: linear-gradient(180deg, #fafafa, #f5f6f8);
   display: flex;
   justify-content: center;
 `;

@@ -62,7 +62,6 @@ const SKILL_GROUPS = [
 /* ===== styled components ===== */
 const Section = styled.section`
   padding: 6rem 1.5rem;
-  background: linear-gradient(180deg, #fafafa, #f4f5f7);
   max-width: 1180px;
   margin: 0 auto;
 

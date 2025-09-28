@@ -8,7 +8,6 @@ import { naver, tistory } from "../../assets/icons";
 /* ===== Layout ===== */
 const Section = styled.section`
   padding: 6rem 1rem 4rem;
-  background: #f5f5f5;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,7 +19,6 @@ const Card = styled(motion.div)`
   width: 100%;
   border-radius: 16px;
   padding: 2rem;
-  background: #fff;
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
   border: 1px solid #e5e5e5;
 
