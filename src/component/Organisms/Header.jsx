@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-scroll";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
+import { FiMenu, FiX } from "react-icons/fi";
 
-// subtle ripple animation
-const ripple = keyframes`
-  0% { transform: scale(1); opacity: 0.4; }
-  100% { transform: scale(2); opacity: 0; }
-`;
+/* ================= Layout ================= */
 
-// 헤더 컨테이너
 const Nav = styled.nav`
   position: fixed;
   top: 0;
@@ -24,7 +20,6 @@ const Nav = styled.nav`
   z-index: 1000;
 `;
 
-// 내부 정렬
 const NavInner = styled.div`
   max-width: 1140px;
   margin: 0 auto;
@@ -34,63 +29,128 @@ const NavInner = styled.div`
   align-items: center;
 `;
 
-// 로고
+/* ================= Logo ================= */
+
 const Logo = styled.div`
-  font-size: 1.4rem;
-  font-weight: 700;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
   color: #1e1e1e;
+  cursor: pointer;
   font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
 `;
 
-// 메뉴 컨테이너
+/* ================= Menu ================= */
+
 const NavMenu = styled.div`
   display: flex;
   gap: 2rem;
 
-  @media (max-width: 600px) {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
+  @media (max-width: 768px) {
+    display: none;
   }
 `;
 
-// 메뉴 항목
 const NavLink = styled(Link)`
   position: relative;
   font-size: 1rem;
   font-weight: 500;
   color: #333;
-  text-decoration: none;
   cursor: pointer;
-  padding: 0.4rem 0.6rem;
+  padding: 0.4rem 0;
   transition: color 0.2s ease;
 
   &:hover {
     color: #5c3a21;
   }
 
-  &::before {
+  &::after {
     content: "";
     position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 6px;
-    height: 6px;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 2px;
     background: #5c3a21;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 0;
-    z-index: 0;
+    transform: scaleX(0);
+    transition: transform 0.25s ease;
+    transform-origin: center;
   }
 
-  &:hover::before {
-    animation: ${ripple} 0.6s ease;
+  &:hover::after {
+    transform: scaleX(1);
+  }
+
+  &.active {
+    color: #5c3a21;
+    font-weight: 600;
+  }
+
+  &.active::after {
+    transform: scaleX(1);
   }
 `;
 
-// Header 컴포넌트
+/* ================= Mobile ================= */
+
+const MenuButton = styled.button`
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+
+  @media (max-width: 768px) {
+    display: block;
+  }
+`;
+
+const MobileMenu = styled.div`
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #e6e6e6;
+  padding: 1.2rem 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+
+  animation: fadeDown 0.25s ease;
+
+  @keyframes fadeDown {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+`;
+
+const MobileLink = styled(Link)`
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+
+  &.active {
+    color: #5c3a21;
+    font-weight: 600;
+  }
+`;
+
+/* ================= Component ================= */
+
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -100,17 +160,59 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleLogoClick = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setOpen(false);
+  };
+
+  const handleMenuClick = () => {
+    setOpen(false);
+  };
+
   return (
     <Nav scrolled={scrolled}>
       <NavInner>
-        <Logo>Suho</Logo>
+        <Logo onClick={handleLogoClick}>Suho</Logo>
+
+        {/* Desktop Menu */}
         <NavMenu>
-          <NavLink to="hero" smooth={true} duration={500}>홈</NavLink>
-          <NavLink to="about" smooth={true} duration={500}>소개</NavLink>
-          <NavLink to="skills" smooth={true} duration={500}>기술</NavLink>
-          <NavLink to="projects" smooth={true} duration={500}>프로젝트</NavLink>
+          <NavLink to="hero" smooth duration={500} spy activeClass="active">
+            홈
+          </NavLink>
+          <NavLink to="about" smooth duration={500} spy activeClass="active">
+            소개
+          </NavLink>
+          <NavLink to="skills" smooth duration={500} spy activeClass="active">
+            기술
+          </NavLink>
+          <NavLink to="projects" smooth duration={500} spy activeClass="active">
+            프로젝트
+          </NavLink>
         </NavMenu>
+
+        {/* Mobile Button */}
+        <MenuButton onClick={() => setOpen(!open)}>
+          {open ? <FiX size={24} /> : <FiMenu size={24} />}
+        </MenuButton>
       </NavInner>
+
+      {/* Mobile Menu */}
+      {open && (
+        <MobileMenu>
+          <MobileLink to="hero" smooth duration={500} spy onClick={handleMenuClick}>
+            홈
+          </MobileLink>
+          <MobileLink to="about" smooth duration={500} spy onClick={handleMenuClick}>
+            소개
+          </MobileLink>
+          <MobileLink to="skills" smooth duration={500} spy onClick={handleMenuClick}>
+            기술
+          </MobileLink>
+          <MobileLink to="projects" smooth duration={500} spy onClick={handleMenuClick}>
+            프로젝트
+          </MobileLink>
+        </MobileMenu>
+      )}
     </Nav>
   );
 };

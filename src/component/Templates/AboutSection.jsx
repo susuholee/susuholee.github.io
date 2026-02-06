@@ -1,179 +1,138 @@
-import React, { useState, useEffect } from "react";
-import styled, { keyframes } from "styled-components";
-import { AnimatePresence, motion } from "framer-motion";
-
-/* ===== Animations ===== */
-const fadeSlide = {
-  enter: { opacity: 0, y: 20 },
-  center: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  exit: { opacity: 0, y: -20, transition: { duration: 0.4 } },
-};
-
-const progressAnim = keyframes`
-  from { width: 0%; }
-  to { width: 100%; }
-`;
+import styled from "styled-components";
+import { motion } from "framer-motion";
 
 /* ===== Layout ===== */
 const Section = styled.section`
-  padding: 6rem 1.5rem 3rem;
+  padding: 6rem 1.5rem;
   display: flex;
   justify-content: center;
+`;
+
+const Container = styled.div`
+  max-width: 1000px;
+  width: 100%;
+`;
+
+const Heading = styled.h2`
+  font-size: 2rem;
+  font-weight: 800;
+  color: #111;
+  margin-bottom: 3rem;
+  text-align: center;
+`;
+
+const Flex = styled.div`
+  display: flex;
+  gap: 1.8rem;
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+  }
 `;
 
 const Card = styled(motion.div)`
-  max-width: 860px;
-  width: 100%;
-  padding: 2.5rem;
-  border-radius: 20px;
-  background: rgba(255,255,255,0.7);
-  backdrop-filter: blur(14px);
-  box-shadow: 0 12px 32px rgba(0,0,0,0.08);
-  border: 1px solid rgba(255,255,255,0.4);
-  position: relative;
-  overflow: hidden;
-`;
-
-/* ===== Title ===== */
-const Title = styled.h3`
-  font-size: 1.35rem;
-  font-weight: 700;
-  margin-bottom: 1.25rem;
-  background: linear-gradient(90deg, #5c3a21, #c69b7d);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-`;
-
-/* ===== Text ===== */
-const CardText = styled.p`
-  font-size: 1rem;
-  line-height: 1.75;
-  color: #333;
-  white-space: pre-line;
-  min-height: 140px;
-`;
-
-/* ===== Navigation ===== */
-const NavButtons = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 0.75rem;
-  margin-top: 1.5rem;
-`;
-
-const Button = styled.button`
-  background: #f3f0ee;
-  border: none;
-  border-radius: 999px;
-  padding: 0.55rem 1.1rem;
-  font-size: 0.88rem;
-  font-weight: 600;
-  color: #5c3a21;
-  cursor: pointer;
-  transition: all 0.2s;
+  flex: 1;
+  background: #fff;
+  border-radius: 18px;
+  padding: 2.2rem;
+  border: 1px solid #eee;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 
   &:hover {
-    background: #5c3a21;
-    color: #fff;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(92,58,33,0.2);
+    transform: translateY(-6px);
+    box-shadow: 0 18px 36px rgba(0,0,0,0.1);
   }
 `;
 
-/* ===== Progress Bar ===== */
-const ProgressBar = styled.div`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 4px;
-  width: 100%;
-  background: rgba(0,0,0,0.08);
+const Eyebrow = styled.span`
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #5c3a21;
+  margin-bottom: 0.8rem;
+`;
 
-  &:after {
-    content: "";
-    display: block;
-    height: 100%;
-    background: linear-gradient(90deg, #5c3a21, #c69b7d);
-    animation: ${progressAnim} 5s linear forwards;
-    key: ${(props) => props.page};
-  }
+const Title = styled.h3`
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 0.8rem;
+`;
+
+const Summary = styled.p`
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.9rem;
+  line-height: 1.6;
+`;
+
+const Description = styled.p`
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: #555;
+  white-space: pre-line;
 `;
 
 const AboutSection = () => {
-  const items = [
+    const items = [
     {
-      title: "코드로 세상을 움직일 수 있다는 가능성",
-      text: `처음 코드를 입력해 로봇을 움직였던 순간, 내가 만든 로직이 실체를 움직일 수 있다는 가능성을 보았습니다.
-이 경험이 개발에 대한 관심으로 이어졌고, 사용자에게 직접 영향을 주는 UI를 설계·구현하는 프론트엔드에 몰입하게 되었습니다.`
+      eyebrow: "성장 배경",
+      title: "어려움을 넘어서며 시야를 넓힌 개발자",
+      summary: "낯선 영역에 도전하며 개발에 대한 이해를 확장해 왔습니다.",
+      description:
+        "학부 시절 처음 접한 프로그래밍 언어는 Java였지만, 당시에는 언어와 개발 방식이 제게 잘 맞지 않아 " +
+        "백엔드 영역에 대해 막연한 어려움을 느꼈습니다. 이러한 한계를 극복하고자 국비지원 개발자 과정을 수강하며 " +
+        "웹 서비스 전반을 다시 배우기 시작했고, Scoop 프로젝트에서 프론트엔드와 백엔드를 함께 담당하며 " +
+        "서버 로직과 데이터 흐름을 직접 다뤄보는 경험을 쌓았습니다.\n" +
+        "이 과정을 통해 백엔드에 대한 거리감이 점차 줄어들었고, " +
+        "서비스가 동작하는 전체 흐름을 이해하는 개발자로 성장할 수 있었습니다."
+    },
+    
+    {
+      eyebrow: "문제 해결 방식",
+      title: "원인을 분석하여 문제를 해결하는 개발자",
+      summary: "현상보다 구조와 흐름을 먼저 분석합니다.",
+      description:
+        "NewSive 프로젝트에서 친구 추가 시 친구 관계는 생성되었지만 알림 데이터가 누락되는 문제가 발생했습니다.\n\n" +
+        "문제의 원인이 두 작업이 분리된 트랜잭션 구조에 있음을 파악하여 Prisma 트랜잭션을 적용해 하나의 작업으로 처리함으로써" +
+        "데이터 무결성을 보장했습니다.",
     },
     {
-      title: "일상에서 ‘개발자의 시선’을 갖다",
-      text: `버스 안 G Bus-TV를 보며 '이 작은 화면의 정보 전달은 어떻게 설계됐을까?'를 떠올린 뒤로,
-저는 늘 사용자 입장에서 정보가 어떻게 흐르고, 어떤 인터랙션이 더 자연스러운지 고민하게 되었습니다.`
-    },
-    {
-      title: "끝까지 파고드는 학습 태도",
-      text: `처음엔 모든 게 새로웠습니다. 강의와 문서로 개념을 파고들고, 예제로 예상→실행→검증을 반복했습니다.
-디버깅으로 원인을 끝까지 추적하는 습관을 통해 문제 해결력을 키워왔고, 지금도 같은 방식으로 배우고 있습니다.`
-    },
-    {
-      title: "백엔드 경험을 '데이터 흐름 이해'로 전환",
-      text: `Scoop 초기에 백엔드 기능 일부를 맡으며 DB 설계, API 구현, 응답 구조를 직접 다뤘습니다.
-당시 백엔드 역량은 약했지만, 그 경험 덕분에 클라이언트 요청이 서버를 거쳐 다시 화면까지 도달하는 전 과정을 몸으로 익혔고,
-이후 프론트엔드 설계에서도 데이터 제약과 흐름을 자연스럽게 고려합니다.`
-    },
-    {
-      title: "사용자 경험을 우선하는 개발 철학",
-      text: `카카오맵 API 기반 시각화 기능을 만들며 '사용자는 이 기능을 어떻게 경험할까?'를 먼저 묻습니다.
-단순히 보이게 하는 것을 넘어, 흐름과 인터랙션까지 설계해 작은 요소 하나도 경험에 기여하도록 고민합니다.`
-    },
-    {
-      title: "실전 감각과 협업 역량 — Scoop",
-      text: `광역·지역 데이터가 섞여 탐색이 불편했던 구조를 시/군구·지하철 좌표로 재구성해 탐색 경험을 개선했습니다.
-Git 브랜치 전략, 코드리뷰, 요구사항 정리 등 협업 프로세스를 실전처럼 경험했습니다.`
-    },
-    {
-      title: "기술보다 사용자를 먼저 생각하는 프론트엔드",
-      text: `저는 '동작하는 기능'보다 ‘편리하게 쓰였다’는 피드백에서 더 큰 보람을 느낍니다.
-복잡한 기술을 감추고, 사용자에게 자연스럽게 다가가는 흐름을 설계하는 개발자로 계속 성장하겠습니다.`
+      eyebrow: "성장 방향",
+      title: "새로운 기술로 서비스에 활기를 더하는 개발자",
+      summary: "도전을 통해 더 나은 사용자 경험을 만듭니다.",
+      description:
+        "새로운 기술을 빠르게 학습하고 실제 서비스에 적용하는 데 거부감이 없습니다. " +
+        "변화하는 기술 흐름 속에서 도전을 멈추지 않으며, " +
+        "서비스의 완성도를 높일 수 있는 방향으로 꾸준히 성장하고 있습니다."
     }
   ];
 
-  const [page, setPage] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setPage((prev) => (prev + 1) % items.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, [items.length]);
-
-  const nextPage = () => setPage((page + 1) % items.length);
-  const prevPage = () => setPage((page - 1 + items.length) % items.length);
-
   return (
     <Section id="about">
-      <Card key={page}>
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={page}
-            variants={fadeSlide}
-            initial="enter"
-            animate="center"
-            exit="exit"
-          >
-            <Title>{items[page].title}</Title>
-            <CardText>{items[page].text}</CardText>
-          </motion.div>
-        </AnimatePresence>
+      <Container>
+        <Heading>저는 이런 개발자가 되고 싶습니다</Heading>
 
-        <NavButtons>
-          <Button onClick={prevPage}>이전</Button>
-          <Button onClick={nextPage}>다음</Button>
-        </NavButtons>
-
-        <ProgressBar page={page} />
-      </Card>
+        <Flex>
+          {items.map((item, idx) => (
+            <Card
+              key={idx}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              viewport={{ once: true }}
+            >
+              <Eyebrow>{item.eyebrow}</Eyebrow>
+              <Title>{item.title}</Title>
+              <Summary>{item.summary}</Summary>
+              <Description>{item.description}</Description>
+            </Card>
+          ))}
+        </Flex>
+      </Container>
     </Section>
   );
 };

@@ -15,8 +15,16 @@ import react_query from '../icons/react_qeury.png';
 
 // Backend
 import nodejs from '../icons/Node.js.png';
-import Express from "../icons/Express.png";
+import nest from "../icons/nest.jpg"
+
+// SQL
 import Mysql from "../icons/MySQL.png";
+import Postgresql from "../icons/postgresql.png";
+
+
+// ORM 
+import Sequelize from "../icons/Sequelize.png";
+import Prisma from "../icons/prisma.jpg"
 
 // Infra / API
 import aws from "../icons/aws.jpeg";
@@ -41,5 +49,5 @@ import naver from "../icons/naver.png";
 import tistory from "../icons/tistory.png"
 
 
-export { html5, css3, tailwind, javascript, typescript, nodejs, Express, Mysql, react, next, react_query, redux, styledcomponent, aws , zustand, kakaomap, git, github, notion, figma,
-naver, tistory, solidity};
+export { html5, css3, tailwind, javascript, typescript, nodejs, Mysql, react, next, react_query, redux, styledcomponent, aws , zustand, kakaomap, git, github, notion, figma,
+naver, tistory, solidity, Sequelize, Postgresql, Prisma, nest};

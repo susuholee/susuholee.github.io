@@ -3,262 +3,218 @@ import { Link } from "react-scroll";
 import { motion } from "framer-motion";
 import { FaGithub } from "react-icons/fa";
 import profileImg from "../../assets/myprofile.jpg";
-import { naver, tistory } from "../../assets/icons";
 
 /* ===== Layout ===== */
 const Section = styled.section`
-  padding: 6rem 1rem 4rem;
+  padding: 7rem 1rem 6rem;
   display: flex;
   justify-content: center;
-  align-items: center;
 `;
 
-const Card = styled(motion.div)`
-  position: relative;
-  max-width: 900px;
+const Container = styled.div`
+  max-width: 1100px;
   width: 100%;
-  border-radius: 16px;
-  padding: 2rem;
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
-  border: 1px solid #e5e5e5;
-
-  @media (max-width: 768px) {
-    padding: 1.5rem;
-  }
-`;
-
-const Inner = styled.div`
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 4rem;
+  align-items: center;
 
-  @media (min-width: 768px) {
-    grid-template-columns: 280px 1fr;
-    align-items: center;
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    text-align: center;
   }
 `;
 
-/* ===== Left (프로필) ===== */
-const ProfileWrap = styled.div`
-  position: relative;
-  width: 160px;
-  height: 160px;
+/* ===== Profile ===== */
+const ProfileWrap = styled(motion.div)`
+  width: 240px;
+  height: 240px;
   margin: 0 auto;
   border-radius: 50%;
-  padding: 4px;
+  padding: 6px;
   background: #fff;
-  border: 2px solid #ccc;
-
-  @media (max-width: 480px) {
-    width: 120px;
-    height: 120px;
-  }
+  border: 2px solid #e5e5e5;
 `;
 
-const ProfileImage = styled(motion.img)`
+const ProfileImage = styled.img`
   width: 100%;
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
 `;
 
-/* ===== Right (텍스트) ===== */
-const Right = styled.div`
-  text-align: center;
+/* ===== Text ===== */
+const Intro = styled(motion.div)``;
 
-  @media (min-width: 768px) {
-    text-align: left;
-  }
-`;
-
-const Heading = styled(motion.h1)`
-  font-size: 2rem;
+const Eyebrow = styled.p`
+  font-size: 0.8rem;
   font-weight: 700;
-  color: #222;
-  margin-bottom: 0.75rem;
+  letter-spacing: 0.08em;
+  color: #5c3a21;
+  margin-bottom: 0.6rem;
+`;
 
-  @media (max-width: 768px) {
-    font-size: 1.8rem;
-    text-align: center;
+const Heading = styled.h1`
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: #111;
+
+  span {
+    color: #5c3a21;
   }
 
-  @media (max-width: 480px) {
-    font-size: 1.4rem;
+  @media (max-width: 768px) {
+    font-size: 2rem;
   }
 `;
 
-const SubText = styled(motion.p)`
-  font-size: 1rem;
+const SubText = styled.p`
+  margin-top: 1.3rem;
+  font-size: 1.05rem;
+  line-height: 1.7;
   color: #444;
-  line-height: 1.6;
-  margin-top: 0.5rem;
+  max-width: 560px;
 
-  @media (max-width: 768px) {
-    font-size: 0.95rem;
-    text-align: center;
+  @media (max-width: 900px) {
+    margin-left: auto;
+    margin-right: auto;
   }
 `;
 
-/* ===== Badge ===== */
+/* ===== Main Stack ===== */
+const MainStack = styled.p`
+  margin-top: 1.4rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+
+  span {
+    color: #5c3a21;
+    font-weight: 800;
+  }
+`;
+
+/* ===== Actions ===== */
+const Actions = styled.div`
+  margin-top: 2rem;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+
+  @media (max-width: 900px) {
+    justify-content: center;
+  }
+`;
+
+const PrimaryButton = styled(Link)`
+  padding: 0.75rem 1.6rem;
+  border-radius: 999px;
+  background: #333;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.25s ease;
+
+  &:hover {
+    background: #111;
+  }
+`;
+
+const GhostButton = styled.a`
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  border: 1px solid #ddd;
+  background: #fff;
+  color: #333;
+  font-size: 0.9rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  &:hover {
+    background: #f6f6f6;
+  }
+`;
+
+/* ===== Tech Badges (확장 스택) ===== */
 const BadgeRow = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 1rem;
+  margin-top: 1.2rem;
 
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     justify-content: center;
   }
 `;
 
-const Badge = styled(motion.span)`
-  font-size: 0.8rem;
-  padding: 0.35rem 0.7rem;
+const Badge = styled.span`
+  font-size: 0.75rem;
+  padding: 0.3rem 0.7rem;
   border-radius: 999px;
-  background: #f0f0f0;
-  color: #333;
-  border: 1px solid #ddd;
-`;
-
-/* ===== Buttons ===== */
-const Actions = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 1.5rem;
-
-  @media (max-width: 768px) {
-    justify-content: center;
-  }
-`;
-
-const CTAButton = styled(Link)`
-  padding: 0.65rem 1.3rem;
-  font-size: 0.9rem;
-  border-radius: 8px;
-  border: 1px solid #333;
-  background: #333;
-  color: #fff;
-  font-weight: 600;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.25s ease;
-
-  &:hover {
-    background: #fff;
-    color: #333;
-  }
-`;
-
-const ContactList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 14px;
-
-  @media (max-width: 768px) {
-    justify-content: center;
-  }
-`;
-
-const ContactItem = styled.a`
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 0.5rem 0.9rem;
-  border-radius: 8px;
-  font-size: 0.85rem;
-  color: #333;
-  text-decoration: none;
-  border: 1px solid #ddd;
-  background: #fff;
-  transition: all 0.2s ease;
-
-  &:hover {
-    background: #333;
-    color: #fff;
-  }
-
-  img {
-    width: 16px;
-    height: 16px;
-  }
-  svg {
-    font-size: 1rem;
-  }
+  background: #f5f5f5;
+  border: 1px solid #e1e1e1;
+  color: #555;
 `;
 
 /* ===== Component ===== */
 const HeroSection = () => {
-  const container = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  };
-
-  const badges = [
-    "React",
-    "TypeScript",
-    "Next.js",
-    "Styled-Components",
-    "Node.js",
-    "React Query",
-    "Zustand",
-    "Redux",
-  ];
 
   return (
     <Section id="hero">
-      <Card initial="hidden" animate="show" variants={container}>
-        <Inner>
-          {/* LEFT */}
-          <ProfileWrap>
-            <ProfileImage src={profileImg} alt="프로필" />
-          </ProfileWrap>
+      <Container>
+        {/* Profile */}
+        <ProfileWrap
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <ProfileImage src={profileImg} alt="이수호 프로필" />
+        </ProfileWrap>
 
-          {/* RIGHT */}
-          <Right>
-            <Heading>프론트엔드 개발자 이수호</Heading>
+        {/* Text */}
+        <Intro
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <Eyebrow>WEB DEVELOPER</Eyebrow>
 
-            <SubText>
-              React 기반 UI/상태 관리와 인터랙션에 강점이 있습니다.{" "}
-              사용자의 흐름을 끊지 않는 컴포넌트 아키텍처를 설계하고,
-              모션으로 의미 있는 피드백을 만듭니다.
-            </SubText>
+          <Heading>
+            서비스 흐름과 안정성을 고민하는<br />
+            <span>개발자 이수호</span>
+          </Heading>
 
-            <BadgeRow>
-              {badges.map((b) => (
-                <Badge key={b}>{b}</Badge>
-              ))}
-            </BadgeRow>
+         <SubText>
+          인증, 데이터 설계, 실시간 통신과 같은  
+          <strong>서비스 핵심 로직과 데이터 흐름</strong>을 중심으로  
+          웹 서비스가 안정적으로 동작하는 구조를 고민하며 개발합니다.
+        </SubText>
 
-            <Actions>
-              <CTAButton to="projects" smooth duration={500}>
-                프로젝트 보기
-              </CTAButton>
-            </Actions>
+          <MainStack>
+            주력 스택: <span>JavaScript, React, Node.js</span>
+          </MainStack>
 
-            <ContactList>
-              <ContactItem href="mailto:akakak695@naver.com">
-                <img src={naver} alt="네이버 로고" /> 이메일
-              </ContactItem>
-              <ContactItem
-                href="https://github.com/susuholee"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <FaGithub /> GitHub
-              </ContactItem>
-              <ContactItem
-                href="https://simplecoding77.tistory.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img src={tistory} alt="티스토리 로고" /> 블로그
-              </ContactItem>
-            </ContactList>
-          </Right>
-        </Inner>
-      </Card>
+          <Actions>
+            <PrimaryButton to="projects" smooth duration={500}>
+              프로젝트 보기
+            </PrimaryButton>
+
+            <GhostButton
+              href="https://github.com/susuholee"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaGithub /> GitHub
+            </GhostButton>
+          </Actions>
+        </Intro>
+      </Container>
     </Section>
   );
 };

@@ -1,27 +1,23 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import { FaGithub } from "react-icons/fa";
-import { FiExternalLink, FiCheckCircle } from "react-icons/fi";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaGithub, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FiExternalLink } from "react-icons/fi";
 
+/* ===== assets ===== */
 import {
-  // nodeconnect
   login, signup, mypage,
-  // scoop
   area, subway, filter,
-  // notionary
-  category, comment, like, post, edit,
-  // sealium
-  sealium_signup, sealium_login, dashboard,
-  DID_signup, intro, vc_issue, vc_request,
-  vc_list, vc_detail, revoke, sharelink, profile_edit
+  category, comment, post,
+  sealium_signup, dashboard,
+  vc_issue, vc_list
 } from "../../assets/gif";
 
 import {
-  nodeconnect, scoop, notionary_logo, Sealium_logo
+  nodeconnect, scoop, notionary_logo,
+  Sealium_logo, NewSive_logo
 } from "../../assets/logo";
 
-
+/* ================= Slider ================= */
 
 const SliderWrapper = styled.div`
   position: relative;
@@ -29,183 +25,83 @@ const SliderWrapper = styled.div`
   height: 200px;
   border-radius: 1rem;
   overflow: hidden;
-  border: 1px solid #eee;
   background: #000;
-
-  @media (max-width: 768px) {
-    height: 220px;
-    border-radius: 0.75rem;
-  }
-
-  @media (max-width: 480px) {
-    height: 180px;
-    border-radius: 0.5rem;
-  }
 `;
 
 const Slide = styled.div`
   position: absolute;
   inset: 0;
-  opacity: ${(props) => (props.active ? 1 : 0)};
-  transform: ${(props) =>
-    props.active ? "scale(1)" : "scale(1.02)"};
-  transition: opacity 0.8s ease, transform 1s ease;
+  opacity: ${({ active }) => (active ? 1 : 0)};
+  transition: opacity 0.6s ease;
 `;
 
-const SlideMedia = ({ src, caption, isActive }) => {
+const Arrow = styled.button`
+  position: absolute;
+  top: 50%;
+  ${({ left }) => (left ? "left: 1rem" : "right: 1rem")};
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.4);
+  border: none;
+  color: #fff;
+  padding: 0.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+`;
+
+const SlideMedia = ({ src }) => {
   const isVideo = src.endsWith(".mp4");
-
-  if (isVideo) {
-    return (
-      <video
-        src={src}
-        autoPlay={isActive}  // 현재 보이는 슬라이드일 때만 재생
-        loop={isActive}      // 보일 때만 루프
-        muted
-        playsInline
-        style={{
-          width: "100%",
-          height: "100%",
-          objectFit: "contain",
-        }}
-      />
-    );
-  }
-
-  return (
+  return isVideo ? (
+    <video
+      src={src}
+      autoPlay
+      muted
+      loop
+      playsInline
+      style={{ width: "100%", height: "100%", objectFit: "contain" }}
+    />
+  ) : (
     <img
       src={src}
-      alt={caption}
+      alt=""
       style={{ width: "100%", height: "100%", objectFit: "contain" }}
     />
   );
 };
 
-
-const SlideCaption = styled.p`
-  position: absolute;
-  bottom: 0.8rem;
-  left: 50%;
-  transform: translateX(-50%);
-  color: #fff;
-  font-size: 0.9rem;
-  background: rgba(0,0,0,0.4);
-  padding: 0.3rem 0.8rem;
-  border-radius: 999px;
-
-  @media (max-width: 480px) {
-    font-size: 0.75rem;
-    padding: 0.25rem 0.6rem;
-  }
-`;
-
-const ArrowButton = styled.button`
-  position: absolute;
-  top: 50%;
-  ${(props) => (props.left ? "left: 1rem;" : "right: 1rem;")}
-  transform: translateY(-50%);
-  background: rgba(0,0,0,0.4);
-  border: none;
-  color: #fff;
-  padding: 0.6rem;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: background 0.2s ease;
-  z-index: 10;
-
-  &:hover {
-    background: rgba(0,0,0,0.7);
-  }
-`;
-
-const ProgressBar = styled.div`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 4px;
-  width: ${(props) => props.progress}%;
-  background: #5c3a21;
-  transition: width 0.1s linear;
-`;
-
 const ModernSlider = ({ slides }) => {
   const [index, setIndex] = useState(0);
-  const [progress, setProgress] = useState(0);
 
-  const nextSlide = () => {
-    setIndex((prev) => (prev + 1) % slides.length);
-    setProgress(0);
-  };
-
-  const prevSlide = () => {
-    setIndex((prev) => (prev - 1 + slides.length) % slides.length);
-    setProgress(0);
-  };
+  const next = () => setIndex((i) => (i + 1) % slides.length);
+  const prev = () => setIndex((i) => (i - 1 + slides.length) % slides.length);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setProgress((p) => {
-        if (p >= 100) {
-          nextSlide();
-          return 0;
-        }
-        return p + 2;
-      });
-    }, 100);
-    return () => clearInterval(interval);
-  }, [slides.length]);
+    const id = setInterval(next, 5000);
+    return () => clearInterval(id);
+  }, []);
 
   return (
     <SliderWrapper>
-      {slides.map((slide, i) => (
+      {slides.map((s, i) => (
         <Slide key={i} active={i === index}>
-          <SlideMedia src={slide.image} caption={slide.caption} />
-          <SlideCaption>{slide.caption}</SlideCaption>
+          <SlideMedia src={s.image} />
         </Slide>
       ))}
-
-      <ArrowButton left onClick={prevSlide}>
-        <FaChevronLeft />
-      </ArrowButton>
-      <ArrowButton onClick={nextSlide}>
-        <FaChevronRight />
-      </ArrowButton>
-
-      <ProgressBar progress={progress} />
+      <Arrow left onClick={prev}><FaChevronLeft /></Arrow>
+      <Arrow onClick={next}><FaChevronRight /></Arrow>
     </SliderWrapper>
   );
 };
 
+/* ================= Layout ================= */
 
-/* ===== Layout ===== */
 const Section = styled.section`
   padding: 6rem 1.5rem;
-  background-color: #ffffff;
-
-  @media (max-width: 768px) {
-    padding: 4rem 1rem;
-  }
-
-  @media (max-width: 480px) {
-    padding: 3rem 0.75rem;
-  }
 `;
 
 const Heading = styled.h2`
-  font-size: 2rem;
-  color: #222;
-  font-weight: 700;
-  margin-bottom: 3rem;
   text-align: center;
-
-  @media (max-width: 768px) {
-    font-size: 1.6rem;
-    margin-bottom: 2rem;
-  }
-
-  @media (max-width: 480px) {
-    font-size: 1.4rem;
-  }
+  font-size: 2rem;
+  margin-bottom: 3rem;
 `;
 
 const ProjectWrapper = styled.div`
@@ -216,605 +112,478 @@ const ProjectWrapper = styled.div`
 
 const ProjectCard = styled.div`
   display: flex;
-  flex-direction: row;
-  gap: 2rem;
+  gap: 2.5rem;
   padding: 2rem;
   border-radius: 1rem;
-  align-items: stretch;
 
   @media (max-width: 900px) {
     flex-direction: column;
-    gap: 1.5rem;
-    padding: 1.5rem;
-  }
-
-  @media (max-width: 480px) {
-    padding: 1rem;
-    gap: 1rem;
-    border-radius: 0.75rem;
   }
 `;
 
-const Left = styled.div`
-  flex: 1;
-`;
-
+const Left = styled.div`flex: 1;`;
 const Right = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.4rem;
 `;
+
+/* ================= UI ================= */
 
 const TitleWrapper = styled.div`
   display: flex;
+  gap: 0.6rem;
   align-items: center;
-  gap: 0.5rem;
-  margin: 0.5rem 0;
 `;
 
 const ProjectLogo = styled.img`
-  width: ${(props) => (props.size === "large" ? "36px" : "24px")};
-  height: ${(props) => (props.size === "large" ? "36px" : "24px")};
-  object-fit: contain;
-  border-radius: 4px;
+  width: 36px;
+  height: 36px;
 `;
 
 const Title = styled.h3`
   font-size: 1.5rem;
   font-weight: 700;
-  color: #333;
+`;
 
-  @media (max-width: 768px) {
-    font-size: 1.3rem;
-  }
+const MetaInfo = styled.div`
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 0.6rem 0;
+`;
 
-  @media (max-width: 480px) {
-    font-size: 1.1rem;
-  }
+const MetaChip = styled.span`
+  font-size: 13px;
+  padding: 4px 10px;
+  background: #f3f4f6;
+  border-radius: 999px;
 `;
 
 const Description = styled.p`
   font-size: 0.95rem;
-  color: #444;
   line-height: 1.6;
-
-  @media (max-width: 768px) {
-    font-size: 0.9rem;
-    line-height: 1.5;
-  }
-
-  @media (max-width: 480px) {
-    font-size: 0.85rem;
-  }
 `;
 
 const InfoCard = styled.div`
-  background: #fff;
+  margin-top: 1rem;
+  padding: 1rem;
   border: 1px solid #eee;
-  border-radius: 10px;
-  padding: 1.2rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  margin-top: 30px;
-
-  h4 {
-    margin: 0 0 0.8rem 0;
-    font-size: 1rem;
-    font-weight: 600;
-    color: #333;
-  }
-
-  ul {
-    margin: 0;
-    padding-left: 1rem;
-    color: #555;
-    font-size: 0.9rem;
-    line-height: 1.6;
-  }
+  border-radius: 0.75rem;
 `;
 
 const TechStack = styled.ul`
   display: flex;
-  gap: 0.5rem;
   flex-wrap: wrap;
+  gap: 0.4rem;
   padding: 0;
-  margin: 0;
 
   li {
     list-style: none;
-    padding: 0.3rem 0.6rem;
     border: 1px solid #ddd;
-    border-radius: 0.5rem;
-    font-size: 0.85rem;
-    background: #fafafa;
+    border-radius: 0.4rem;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.8rem;
   }
 `;
 
+const SummaryBox = styled.div`
+  padding: 1rem;
+  background: #f9fafb;
+  border-left: 4px solid #5c3a21;
+  line-height: 1.6;
+`;
 
-const RoleList = styled.div`
-  margin-top: 1.5rem;      /* 섹션 간격 늘림 */
-  padding: 1rem;           /* 블록 안쪽 여백 */
-  border-radius: 0.75rem;  /* 모서리 라운드 */
-  background: #fafafa;     /* 연한 배경색으로 블록 구분 */
+const SectionTitle = styled.h4`
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #5c3a21;
+`;
 
+const BulletList = styled.ul`
+  padding-left: 1rem;
+  line-height: 1.6;
+
+  li {
+    margin-bottom: 0.3rem;
+  }
+`;
+
+const ProblemSolution = styled.div`
   font-size: 0.9rem;
+  line-height: 1.6;
   color: #444;
 
   strong {
-    display: block;
-    margin-bottom: 0.6rem;
-    font-weight: 700;
-    color: #5c3a21;       /* 포인트 컬러 */
-    font-size: 1rem;
-    border-left: 4px solid #5c3a21; /* 시각적 강조 */
-    padding-left: 0.5rem;
-  }
-
-  ul {
-    margin: 0;
-    padding-left: 0;
-  }
-
-  li {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.4rem;
-    margin-bottom: 0.4rem;
-    list-style: none;
-    line-height: 1.5;
-  }
-
-  svg {
-    color: #5c3a21;
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
-
-  @media (max-width: 480px) {
-    font-size: 0.82rem;
-    padding: 0.75rem;
+    color: #222;
   }
 `;
 
-
 const ButtonGroup = styled.div`
-  margin-top: auto;
   display: flex;
-  flex-wrap: wrap;
   gap: 0.6rem;
-
-  @media (max-width: 480px) {
-    gap: 0.5rem;
-    flex-direction: column;
-  }
+  margin-top: auto;
 `;
 
 const LinkButton = styled.a`
-  flex: 1 1 140px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
-
-  padding: 0.45rem 0.9rem;   
-  font-size: 0.85rem;        
-  font-weight: 500;
-  text-decoration: none;
-  text-align: center;
-  border-radius: 999px;      
-  border: 1.5px solid #5c3a21; 
+  flex: 1;
+  padding: 0.45rem;
+  border-radius: 999px;
+  border: 1.5px solid #5c3a21;
   color: #5c3a21;
-  background: transparent;
-  transition: transform 0.2s ease, box-shadow 0.2s ease,
-              background-color 0.2s ease, color 0.2s ease;
+  text-align: center;
+  text-decoration: none;
 
   &:hover {
-    background-color: #5c3a21;  
-    color: #ffffff;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 14px rgba(92, 58, 33, 0.18);
-  }
-  &:active {
-    transform: translateY(-1px) scale(0.99);
-    box-shadow: 0 3px 8px rgba(92, 58, 33, 0.14);
-  }
-
-  @media (max-width: 480px) {
-    font-size: 0.8rem;
-    padding: 0.4rem 0.8rem;
+    background: #5c3a21;
+    color: #fff;
   }
 `;
-
 
 
 const ProjectsSection = () => {
   return (
     <Section id="projects">
       <Heading>프로젝트</Heading>
+
       <ProjectWrapper>
 
-
-      {/* Sealium */}
-    <ProjectCard>
-        <Left>
+        {/* NewSive */}
+        <ProjectCard>
+          <Left>
             <TitleWrapper>
-            <ProjectLogo src={Sealium_logo} alt="Sealium 로고" size="large" />
-            <Title>Sealium</Title>
-          </TitleWrapper>
+              <ProjectLogo src={NewSive_logo} />
+              <Title>NewSive</Title>
+            </TitleWrapper>
 
-          <Description>
-            DID(Decentralized Identifier) 기반으로 안전하고 투명한 
-            VC(Verifiable Credential) 발급 및 검증을 지원하는 반응형 웹 플랫폼<br />
-          </Description>
+            <MetaInfo>
+              <MetaChip>개발 기간 : 2025.12.02 ~ 2026.02.01</MetaChip>
+              <MetaChip>개인 프로젝트 (1인 개발)</MetaChip>
+            </MetaInfo>
 
-        
-          <ModernSlider
-            slides={[
-              { image: sealium_signup, caption: "회원가입" },
-              { image: sealium_login, caption: "로그인" },
-              { image: DID_signup, caption: "DID 추가정보 입력" },
-              { image: intro, caption: "인트로" },
-              { image: dashboard, caption: "대시보드" },
-              { image: vc_issue, caption: "VC 발급 요청" },
-              { image: vc_request, caption: "VC 요청 현황"},
-              { image: vc_list, caption: "VC 목록" },
-              { image: vc_detail, caption: "VC 상세 조회" },
-              { image: sharelink, caption: "VC 공유 링크 생성" },
-              { image: revoke, caption: "VC 폐기 요청" },
-              { image: profile_edit, caption: "회원정보 수정/탈퇴"}
-            ]}
-          />
-          {/* 기술 스택 */}
-          <InfoCard>
-            <h4>기술 스택 (Frontend)</h4>
-            <TechStack>
-              <li>Next.js</li>
-              <li>TailwindCSS</li>
-              <li>React Query</li>
-              <li>Zustand</li>
-            </TechStack>
-          </InfoCard>
-        </Left>
+            <Description>
+              실시간 뉴스 기반 정보 공유와 사용자 소통을 중심으로 한 웹 플랫폼
+            </Description>
 
-        <Right>
-          {/* 담당 역할 */}
-          <InfoCard>
-            <h4>담당 역할 (Frontend)</h4>
-            <ul>
-              <li>일반 계정 회원가입/로그인 및 DID 추가정보 입력 페이지 UI 개발</li>
-              <li>VC 발급/폐기 요청 및 상세 조회 화면 구현</li>
-              <li>VC 공유 링크 생성 및 관리 UI 개발</li>
-              <li>인트로, 대시보드 등 주요 페이지 반응형 레이아웃 설계</li>
-              <li>React Query + Zustand를 활용한 서버 상태/전역 상태 관리 구조 설계</li>
-            </ul>
-          </InfoCard>
+            {/* <ModernSlider slides={[
+              { image: login },
+              { image: signup },
+              { image: mypage },
+            ]} /> */}
 
-          {/* 이슈 상황 */}
-          <InfoCard>
-            <h4>이슈 상황</h4>
-            <ul>
-              <li>프로젝트 중도에 팀원 이탈로 인한 역할 공백 발생</li>
-              <li>카카오 로그인 이후 리다이렉트 시 무한 렌더링 현상</li>
-            </ul>
-          </InfoCard>
+            <InfoCard>
+              <h4>기술 스택</h4>
+              <TechStack>
+                <li>Next.js</li>
+                <li>TypeScript</li>
+                <li>Zustand</li>
+                <li>React Query</li>
+                <li>NestJS</li>
+                <li>Socket.IO</li>
+              </TechStack>
+            </InfoCard>
+          </Left>
 
-            {/* 해결 방안 */}
-        <InfoCard>
-          <h4>해결 방안</h4>
-          <ul>
-            <li>남은 팀원과 함께 역할을 재분배하고, <strong>Notion 협업 툴</strong>을 활용하여 우선순위를 조정 → 핵심 기능(VC 발급 및 검증)에 집중해 프로젝트를 기한 내 완성</li>
-            <li>카카오 로그인 redirect 로직을 전역 레이아웃으로 이동, 조건 분기 처리 적용 → 무한 렌더링 방지</li>
-          </ul>
-        </InfoCard>
+          <Right>
+            <SummaryBox>
+              실시간 통신과 인증 구조를 직접 설계하며
+              서비스 전반의 흐름을 단독으로 구현한 프로젝트입니다.
+            </SummaryBox>
 
-          {/* 개선 방향 */}
-          <InfoCard>
-            <h4>개선 방향</h4>
-            <ul>
-              <li>컴포넌트 모듈화 및 리팩토링을 통한 코드 구조 개선</li>
-              <li>React Query의 자동 refetch 및 캐싱 무효화 적용 → 최신 데이터 즉시 반영</li>
-              <li>VC 공유 링크 구조를 certificateId 기반으로 개선 → 보안 강화</li>
-              <li>전역 에러 핸들링 및 사용자 친화적 메시지 제공</li>
-            </ul>
-          </InfoCard>
+            <SectionTitle>담당 역할: 프론트, 백엔드</SectionTitle>
+            <BulletList>
+              <li>JWT 기반 인증 및 보호 라우팅 구현</li>
+              <li>Socket.IO 기반 실시간 채팅 및 알림 기능 개발</li>
+            </BulletList>
 
-          {/* 향후 확장 방향 */}
-          <InfoCard>
-            <h4>향후 확장 방향</h4>
-            <ul>
-              <li>다국어 지원 → 글로벌 사용자 대상 접근성 확대</li>
-              <li>생체 인증 연동(Face ID, 지문) → 보안 강화</li>
-              <li>VC 발급/검증 시 실시간 알림 제공 → 사용자 경험 개선</li>
-            </ul>
-          </InfoCard>
+            <SectionTitle>이슈 및 해결</SectionTitle>
+            <ProblemSolution>
+              <strong>이슈</strong><br />
+            친구 추가시 데이터 불일치 발생
+              <br /><br />
+              <strong>해결</strong><br />
+           친구 관계 생성 시 양방향 관계(User–Friend)와 알림 생성 로직을 하나의 트랜잭션으로 묶어 처리하여 데이터 무결성 보장
+            </ProblemSolution>
 
-          <ButtonGroup>
-            <LinkButton href="https://github.com/susuholee/DID_project_Client" target="_blank">
-              <FaGithub /> GitHub
-            </LinkButton>
-            <LinkButton href="https://sealiumback.store" target="_blank">
-              <FiExternalLink /> 배포 보기
-            </LinkButton>
-          </ButtonGroup>
-        </Right>
-      </ProjectCard>
+            <ButtonGroup>
+              <LinkButton href="https://github.com/susuholee/NewSive_FrontEnd" target="_blank">
+                <FaGithub /> GitHub
+              </LinkButton>
+              <LinkButton href="https://www.newsive.store" target="_blank">
+                <FiExternalLink /> 배포
+              </LinkButton>
+            </ButtonGroup>
+          </Right>
+        </ProjectCard>
 
-     {/* Notionary */}
-    <ProjectCard>
-      <Left>
-        <TitleWrapper>
-          <ProjectLogo src={notionary_logo} alt="Notionary 로고" size="large" />
-          <Title>Notionary</Title>
-        </TitleWrapper>
+        {/* Sealium */}
+        <ProjectCard>
+          <Left>
+            <TitleWrapper>
+              <ProjectLogo src={Sealium_logo} />
+              <Title>Sealium</Title>
+            </TitleWrapper>
 
-        <Description>
-          개인의 노션(Notion) 워크스페이스를 공유하고,<br />
-          게시글과 커뮤니티 활동을 통해 다양한 고민을 해결하는 웹 플랫폼.
-        </Description>
-        <ModernSlider
-          slides={[
-            { image: category, caption: "카테고리 필터링" },
-            { image: post, caption: "게시글 작성" },
-            { image: edit, caption: "게시글 수정" },
-            { image: comment, caption: "댓글 기능" },
-            { image: like, caption: "좋아요 기능" },
-          ]}
-        />
+            <MetaInfo>
+              <MetaChip>개발 기간 : 2025.08.04 ~ 2025.09.17</MetaChip>
+              <MetaChip>팀 프로젝트 (프론트엔드 2명, 백엔드 1명)</MetaChip>
+            </MetaInfo>
 
-      {/* 기술 스택 */}
-      <InfoCard>
-      <h4>기술 스택</h4>
-      <TechStack>
-        <li>React</li>
-        <li>Redux</li>
-        <li>React Query</li>
-        <li>styled-components</li>
-        <li>Node.js</li>
-        <li>Express</li>
-        <li>MySQL</li>
-        <li>Sequelize</li>
-      </TechStack>
-      </InfoCard>
-      </Left>
-      <Right>
-  
-        {/* 담당 역할 */}
-        <InfoCard>
-          <h4>담당 역할</h4>
-          <ul>
-            <li>게시글 작성, 수정, 조회 기능 (Frontend + Backend)</li>
-            <li>카테고리 분류 및 동적 필터링 기능 구현</li>
-            <li>워크스페이스 첨부 기능 및 미디어 파일 처리</li>
-            <li>댓글/좋아요 기능 API 연동 및 UI 개발</li>
-            <li>마이페이지 내 사용자 작성 글 조회 기능</li>
-          </ul>
-        </InfoCard>
+            <Description>
+              DID 기반 VC 발급 및 검증을 지원하는 보안 중심 웹 플랫폼
+            </Description>
 
-        {/* 이슈 상황 */}
-        <InfoCard>
-          <h4>이슈 상황</h4>
-          <ul>
-            <li>게시글 + 워크스페이스를 함께 보여줄 때 UI가 복잡해 가독성 저하</li>
-            <li>DB 워크스페이스 관련 필드명 유사 → 매핑 및 유지보수 어려움</li>
-            <li>사용자 인증 없이 req.body의 uid를 직접 받아 보안 취약</li>
-          </ul>
-        </InfoCard>
+            <ModernSlider slides={[
+              { image: sealium_signup },
+              { image: dashboard },
+              { image: vc_issue },
+              { image: vc_list },
+            ]} />
 
-        {/* 해결 방안 */}
-        <InfoCard>
-          <h4>해결 방안</h4>
-          <ul>
-            <li>워크스페이스는 모달/탭으로 분리해 UX 개선</li>
-            <li>워크스페이스 DB에 depth 필드를 추가하고 필드명 단순화</li>
-            <li>JWT 인증 기반 미들웨어 도입해 사용자 검증 프로세스 강화</li>
-          </ul>
-        </InfoCard>
+            <InfoCard>
+              <h4>기술 스택</h4>
+              <TechStack>
+                <li>Next.js</li>
+                <li>React Query</li>
+                <li>Zustand</li>
+                <li>Tailwind CSS</li>
+              </TechStack>
+            </InfoCard>
+          </Left>
 
-    {/* 향후 확장 방향 */}
-    <InfoCard>
-      <h4>향후 확장 방향</h4>
-      <ul>
-        <li>댓글 알림 기능 → 커뮤니티 활성화 및 사용자 반응성 증가</li>
-        <li>WebSocket 기반 실시간 좋아요·댓글 반영 → 즉각적 피드백 제공</li>
-        <li>관심 카테고리 기반 추천 시스템 → 개인화 경험 제공 및 재방문율 향상</li>
-        <li>관리자 기능(신고 게시글 관리, 유저 모니터링) → 커뮤니티 질 관리 및 운영 효율성 강화</li>
-      </ul>
-    </InfoCard>
+          <Right>
+            <SummaryBox>
+              VC 발급 및 검증 화면과 상태 관리 구조를 중심으로
+              프론트엔드 주요 기능을 담당한 프로젝트입니다.
+            </SummaryBox>
 
-        <ButtonGroup>
-          <LinkButton href="https://github.com/susuholee/Notionary_Project" target="_blank">
-            <FaGithub /> GitHub
-          </LinkButton>
-          <LinkButton href="https://notionarys.store" target="_blank">
-            <FiExternalLink /> 배포 보기
-          </LinkButton>
-        </ButtonGroup>
-      </Right>
-    </ProjectCard>
+            <SectionTitle>담당 역할: 프론트</SectionTitle>
+            <BulletList>
+              <li>VC 발급 및 조회 핵심 UI 구현</li>
+              <li>React Query + Zustand 상태 관리 구조 설계</li>
+            </BulletList>
 
-      {/* Scoop */}
-    <ProjectCard>
-      <Left>
+            <SectionTitle>이슈 및 해결</SectionTitle>
+            <ProblemSolution>
+              <strong>이슈</strong><br />
+              로그인 이후 리다이렉트 과정에서
+              상태 변경이 반복되며 무한 렌더링이 발생
+              <br /><br />
+              <strong>해결</strong><br />
+              리다이렉트 로직을 전역 레이아웃으로 이동하고
+              조건 분기를 추가해 렌더링 루프를 차단
+            </ProblemSolution>
 
-      <TitleWrapper>
-        <ProjectLogo src={scoop} alt="Scoop 로고" />
-         <Title>Scoop</Title>
-      </TitleWrapper>
+            <ButtonGroup>
+              <LinkButton href="https://github.com/susuholee/DID_project_Client" target="_blank">
+                <FaGithub /> GitHub
+              </LinkButton>
+              <LinkButton href="https://sealiumback.store" target="_blank">
+                <FiExternalLink /> 배포
+              </LinkButton>
+            </ButtonGroup>
+          </Right>
+        </ProjectCard>
 
-      <Description>
-      위치 기반 동호회 탐색 플랫폼.<br />
-      Kakao Map API와 지역/광역 단위 필터링을 통해 사용자가 원하는 동호회를 직관적으로 찾을 수 있도록 구현했습니다.
-      </Description>
+        {/* Notionary */}
+        <ProjectCard>
+          <Left>
+            <TitleWrapper>
+              <ProjectLogo src={notionary_logo} />
+              <Title>Notionary</Title>
+            </TitleWrapper>
 
-  
-      <ModernSlider
-      slides={[
-        { image: area, caption: "광역 기반 탐색" },
-        { image: subway, caption: "지역 기반 탐색" },
-        { image: filter, caption: "필터링 기능" },
-      ]}
-      />
+            <MetaInfo>
+              <MetaChip>개발 기간 : 2025.05.16 ~ 2025.06.01</MetaChip>
+              <MetaChip>팀 프로젝트 (프론트엔드 1명, 백엔드 2명)</MetaChip>
+            </MetaInfo>
 
-      {/* 기술 스택 */}
-      <InfoCard>
-      <h4>기술 스택</h4>
-      <TechStack>
-        <li>HTML</li>
-        <li>CSS</li>
-        <li>JavaScript</li>
-        <li>Node.js</li>
-        <li>Express</li>
-        <li>EJS</li>
-        <li>MySQL</li>
-      </TechStack>
-      </InfoCard>
+            <Description>
+              노션 워크스페이스 공유를 기반으로 한 커뮤니티 플랫폼
+            </Description>
 
-      </Left>
+            <ModernSlider slides={[
+              { image: category },
+              { image: post },
+              { image: comment },
+            ]} />
 
-      <Right>
+            <InfoCard>
+              <h4>기술 스택</h4>
+              <TechStack>
+                <li>React</li>
+                <li>Redux</li>
+                <li>Node.js</li>
+                <li>MySQL</li>
+              </TechStack>
+            </InfoCard>
+          </Left>
 
-      <InfoCard>
-    <h4>담당 역할</h4>
-    <ul>
-      <li>프로젝트 내 <strong>메인 페이지</strong> 프론트엔드/백엔드 개발 담당</li>
-      <li>Node.js + Express 기반 서버 로직 및 라우팅 구현</li>
-      <li>EJS 템플릿을 활용한 메인 페이지 동적 렌더링</li>
-      <li>Kakao Map API 연동 및 지도 시각화 처리</li>
-      <li>지역 데이터 구조화 및 필터링 로직 설계</li>
-      <li>UI/UX 개선 및 탐색 흐름 최적화</li>
-    </ul>
-  </InfoCard>
+          <Right>
+            <SummaryBox>
+              게시글과 워크스페이스 기능을 중심으로
+              커뮤니티 사용성을 개선한 프로젝트입니다.
+            </SummaryBox>
 
+            <SectionTitle>담당 역할: 프론트, 백엔드</SectionTitle>
+            <BulletList>
+              <li>게시글 CRUD 및 댓글 기능 구현</li>
+              <li>JWT 인증 미들웨어 도입</li>
+            </BulletList>
 
-      {/* 이슈 */}
-      <InfoCard>
-      <h4>이슈</h4>
-      <ul>
-        <li>동일 지역/지하철역에 여러 동호회가 등록되면 마커가 겹쳐 시각적으로 혼란 발생</li>
-        <li>일부 필터 조건이 정상적으로 동작하지 않아 검색 정확도 저하</li>
-        <li>광역/지역 단위 구분이 불명확해 탐색 시 혼동 발생</li>
-      </ul>
-      </InfoCard>
+            <SectionTitle>이슈 및 해결</SectionTitle>
+            <ProblemSolution>
+              <strong>이슈</strong><br />
+              게시글과 워크스페이스를 동시에 노출하면서
+              화면 가독성이 크게 저하
+              <br /><br />
+              <strong>해결</strong><br />
+              워크스페이스 영역을 모달 및 탭 구조로 분리해
+              콘텐츠 집중도를 개선
+            </ProblemSolution>
 
-      {/* 해결 방안 */}
-      <InfoCard>
-      <h4>해결 방안</h4>
-      <ul>
-        <li>회원 수에 따라 마커 크기를 차등 적용해 겹침 문제 완화</li>
-        <li>필터 선택 시 지도/리스트 영역을 동시에 업데이트하도록 로직 개선</li>
-        <li>광역 단위는 행정구역 중심 좌표, 지역 단위는 지하철역 좌표를 기준으로 분리 표시</li>
-      </ul>
-      </InfoCard>
+            <ButtonGroup>
+              <LinkButton href="https://github.com/susuholee/Notionary_Project" target="_blank">
+                <FaGithub /> GitHub
+              </LinkButton>
+            </ButtonGroup>
+          </Right>
+        </ProjectCard>
 
-      {/* 향후 과제 */}
-      <InfoCard>
-      <h4>향후 확장 방향</h4>
-      <ul>
-        <li>마커 클러스터링 적용으로 대규모 데이터 대응</li>
-        <li>사용자 지역 + 선호 카테고리 기반 동호회 추천 알고리즘 도입</li>
-        <li>일정 등록, 알림 등 커뮤니티 기능 확장</li>
-        <li>반응형 UI 적용 및 모바일 최적화</li>
-      </ul>
-      </InfoCard>
+        {/* Scoop */}
+        <ProjectCard>
+          <Left>
+            <TitleWrapper>
+              <ProjectLogo src={scoop} />
+              <Title>Scoop</Title>
+            </TitleWrapper>
 
-      {/* 버튼 */}
-      <ButtonGroup>
-      <LinkButton href="https://github.com/susuholee/scoop_project/tree/susu" target="_blank">
-        <FaGithub /> GitHub
-      </LinkButton>
-      <LinkButton href="https://joinscoop.store" target="_blank">
-        <FiExternalLink /> 배포 보기
-      </LinkButton>
-      </ButtonGroup>
-      </Right>
-      </ProjectCard>
+            <MetaInfo>
+              <MetaChip>개발 기간 : 2025.04.02 ~ 2025.04.18</MetaChip>
+              <MetaChip>팀 프로젝트 (프론트엔드 1명, 백엔드 2명)</MetaChip>
+            </MetaInfo>
 
-      {/* Node_Connect */}
-    <ProjectCard>
-        <Left>
-        <TitleWrapper>
-          <ProjectLogo src={nodeconnect} alt="Node_Connect 로고" size="large" />
-          <Title>Node_Connect</Title>
-        </TitleWrapper>
+            <Description>
+              위치 기반으로 동호회를 탐색할 수 있는 웹 서비스
+            </Description>
 
-        <Description>
-        영화 추천과 사용자 취향 관리 기능을 담은 웹 플랫폼입니다. <br/>
-        간단한 인터페이스와 필수 기능 구현으로 빠르고 편리한 사용 경험을 제공합니다.
-        </Description>
+            <ModernSlider slides={[
+              { image: area },
+              { image: subway },
+              { image: filter },
+            ]} />
 
-          <ModernSlider
-            slides={[
-              { image: login, caption: "로그인" },
-              { image: signup, caption: "회원가입" },
-              { image: mypage, caption: "마이페이지" },
-            ]}
-          />
+            <InfoCard>
+              <h4>기술 스택</h4>
+              <TechStack>
+                <li>Node.js</li>
+                <li>Express</li>
+                <li>EJS</li>
+              </TechStack>
+            </InfoCard>
+          </Left>
 
-          {/* 기술 스택 */}
-          <InfoCard>
-            <h4>기술 스택</h4>
-            <TechStack>
-              <li>HTML</li>
-              <li>CSS</li>
-              <li>JavaScript</li>
-            </TechStack>
-          </InfoCard>
+          <Right>
+            <SummaryBox>
+              지도 기반 탐색 흐름을 개선하며
+              사용자 탐색 경험을 높인 프로젝트입니다.
+            </SummaryBox>
 
-        </Left>
+            <SectionTitle>담당 역할 : 프론트, 백엔드</SectionTitle>
+            <BulletList>
+              <li>Kakao Map API 연동</li>
+              <li>지역 및 필터링 로직 설계</li>
+            </BulletList>
 
-        <Right>
+            <SectionTitle>이슈 및 해결</SectionTitle>
+            <ProblemSolution>
+              <strong>이슈</strong><br />
+              동일 지역에 여러 동호회가 표시되며
+              지도 마커가 겹치는 문제 발생
+              <br /><br />
+              <strong>해결</strong><br />
+              회원 수 기준으로 마커 크기를 차등 적용하고
+              필터 변경 시 지도와 리스트를 동시에 갱신
+            </ProblemSolution>
 
-          {/* 맡은 역할 */}
-          <InfoCard>
-            <h4>맡은 역할</h4>
-            <ul>
-              <li>로그인 기능 전체 구현 (LocalStorage 비교, 세션 유지)</li>
-              <li>회원가입 기능 전체 구현 (입력값 검증 및 저장)</li>
-              <li>마이페이지 기능 전체 구현 (정보 조회, 수정, 탈퇴)</li>
-              <li>로그아웃 처리 (데이터 초기화 및 리다이렉션)</li>
-            </ul>
-          </InfoCard>
+            <ButtonGroup>
+              <LinkButton href="https://github.com/susuholee/scoop_project/tree/susu" target="_blank">
+                <FaGithub /> GitHub
+              </LinkButton>
+              <LinkButton href="https://joinscoop.store" target="_blank">
+                <FiExternalLink /> 배포
+              </LinkButton>
+            </ButtonGroup>
+          </Right>
+        </ProjectCard>
 
-          {/* 이슈 */}
-          <InfoCard>
-            <h4>이슈</h4>
-            <ul>
-              <li>아이디 중복 가입 허용 → 동일 계정 다중 생성 가능</li>
-              <li>로그인 상태가 새로고침/브라우저 재시작 시 유지되지 않음</li>
-              <li>비밀번호가 평문으로 저장되어 보안 취약</li>
-            </ul>
-          </InfoCard>
+        {/* Node_Connect */}
+        <ProjectCard>
+          <Left>
+            <TitleWrapper>
+              <ProjectLogo src={nodeconnect} />
+              <Title>Node_Connect</Title>
+            </TitleWrapper>
 
-          {/* 해결방안 */}
-          <InfoCard>
-            <h4>해결방안</h4>
-            <ul>
-              <li>JWT 기반 인증·세션 관리 구조 도입 검토</li>
-              <li>비밀번호 암호화하여 DB에 저장할 수 있도록 설계</li>
-            </ul>
-          </InfoCard>
+            <MetaInfo>
+              <MetaChip>개발 기간 : 2025.02.14 ~ 2025.02.21</MetaChip>
+              <MetaChip>팀 프로젝트 (총 5명, 페이지별 역할 분담)</MetaChip>
+            </MetaInfo>
 
-          {/* 향후 과제 */}
-          <InfoCard>
-            <h4>향후 확장 방향</h4>
-            <ul>
-              <li>Node.js + DB 연동으로 서버 기반 인증 확장</li>
-              <li>영화 API 연동 통한 실시간 추천 기능 제공</li>
-              <li>반응형 UI로 모바일 최적화</li>
-            </ul>
-          </InfoCard>
+            <Description>
+              영화 추천과 사용자 취향 관리를 제공하는 웹 플랫폼
+            </Description>
 
-          {/* 버튼 */}
-          <ButtonGroup>
-            <LinkButton href="https://github.com/susuholee/NodeConnect_project" target="_blank">
-              GitHub
-            </LinkButton>
-            <LinkButton href="https://nodeconnectproject.vercel.app/" target="_blank">
-              배포 보기
-            </LinkButton>
-          </ButtonGroup>
-        </Right>
-      </ProjectCard>
+            <ModernSlider slides={[
+              { image: login },
+              { image: signup },
+              { image: mypage },
+            ]} />
+
+            <InfoCard>
+              <h4>기술 스택</h4>
+              <TechStack>
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>JavaScript</li>
+              </TechStack>
+            </InfoCard>
+          </Left>
+
+          <Right>
+            <SummaryBox>
+              인증과 마이페이지 기능을 구현하며
+              웹 서비스 기본 구조를 학습한 프로젝트입니다.
+            </SummaryBox>
+
+            <SectionTitle>담당 역할: 로그인, 회원가입, 마이페이지</SectionTitle>
+            <BulletList>
+              <li>로그인 및 회원가입 기능 구현</li>
+              <li>마이페이지 조회 및 수정 기능 개발</li>
+            </BulletList>
+
+            <SectionTitle>이슈 및 해결</SectionTitle>
+            <ProblemSolution>
+              <strong>이슈</strong><br />
+              로그인 상태가 새로고침 시 유지되지 않고
+              비밀번호가 평문으로 저장되는 구조적 한계 존재
+              <br /><br />
+              <strong>해결</strong><br />
+              JWT 기반 인증 구조의 필요성을 인지하고
+              이후 프로젝트에서 보안 설계를 적극 반영
+            </ProblemSolution>
+
+            <ButtonGroup>
+              <LinkButton href="https://github.com/susuholee/NodeConnect_project" target="_blank">
+                <FaGithub /> GitHub
+              </LinkButton>
+              <LinkButton href="https://nodeconnectproject.vercel.app/" target="_blank">
+                <FiExternalLink /> 배포
+              </LinkButton>
+            </ButtonGroup>
+          </Right>
+        </ProjectCard>
 
       </ProjectWrapper>
     </Section>
