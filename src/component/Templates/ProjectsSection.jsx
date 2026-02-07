@@ -3,13 +3,16 @@ import { useState, useEffect } from "react";
 import { FaGithub, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { FiExternalLink } from "react-icons/fi";
 
-/* ===== assets ===== */
 import {
   login, signup, mypage,
   area, subway, filter,
   category, comment, post,
   sealium_signup, dashboard,
-  vc_issue, vc_list
+  vc_issue, vc_list,
+  newsive_intro,
+  news,
+  friend_add,
+  friend_received
 } from "../../assets/gif";
 
 import {
@@ -17,7 +20,7 @@ import {
   Sealium_logo, NewSive_logo
 } from "../../assets/logo";
 
-/* ================= Slider ================= */
+
 
 const SliderWrapper = styled.div`
   position: relative;
@@ -51,26 +54,14 @@ const Arrow = styled.button`
 const SlideMedia = ({ src }) => {
   const isVideo = src.endsWith(".mp4");
   return isVideo ? (
-    <video
-      src={src}
-      autoPlay
-      muted
-      loop
-      playsInline
-      style={{ width: "100%", height: "100%", objectFit: "contain" }}
-    />
+    <video src={src} autoPlay muted loop playsInline style={{ width: "100%", height: "100%", objectFit: "contain" }} />
   ) : (
-    <img
-      src={src}
-      alt=""
-      style={{ width: "100%", height: "100%", objectFit: "contain" }}
-    />
+    <img src={src} alt="" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
   );
 };
 
 const ModernSlider = ({ slides }) => {
   const [index, setIndex] = useState(0);
-
   const next = () => setIndex((i) => (i + 1) % slides.length);
   const prev = () => setIndex((i) => (i - 1 + slides.length) % slides.length);
 
@@ -129,7 +120,7 @@ const Right = styled.div`
   gap: 1.4rem;
 `;
 
-/* ================= UI ================= */
+
 
 const TitleWrapper = styled.div`
   display: flex;
@@ -242,6 +233,7 @@ const LinkButton = styled.a`
 `;
 
 
+
 const ProjectsSection = () => {
   return (
     <Section id="projects">
@@ -258,19 +250,21 @@ const ProjectsSection = () => {
             </TitleWrapper>
 
             <MetaInfo>
-              <MetaChip>개발 기간 : 2025.12.02 ~ 2026.02.01</MetaChip>
-              <MetaChip>개인 프로젝트 (1인 개발)</MetaChip>
+              <MetaChip>2025.12.02 ~ 2026.02.01</MetaChip>
+              <MetaChip>개인 프로젝트</MetaChip>
+              <MetaChip>1인 개발</MetaChip>
             </MetaInfo>
 
             <Description>
               실시간 뉴스 기반 정보 공유와 사용자 소통을 중심으로 한 웹 플랫폼
             </Description>
 
-            {/* <ModernSlider slides={[
-              { image: login },
-              { image: signup },
-              { image: mypage },
-            ]} /> */}
+            <ModernSlider slides={[
+              { image: newsive_intro },
+              { image: news },
+              { image: friend_add },
+              { image: friend_received }
+            ]} />
 
             <InfoCard>
               <h4>기술 스택</h4>
@@ -287,23 +281,29 @@ const ProjectsSection = () => {
 
           <Right>
             <SummaryBox>
-              실시간 통신과 인증 구조를 직접 설계하며
-              서비스 전반의 흐름을 단독으로 구현한 프로젝트입니다.
+              실시간 통신과 인증 구조를 직접 설계하며  
+              서비스 전반을 단독으로 구현한 프로젝트입니다.
             </SummaryBox>
 
-            <SectionTitle>담당 역할: 프론트, 백엔드</SectionTitle>
+            <SectionTitle>주요 기능</SectionTitle>
             <BulletList>
-              <li>JWT 기반 인증 및 보호 라우팅 구현</li>
-              <li>Socket.IO 기반 실시간 채팅 및 알림 기능 개발</li>
+              <li>실시간 뉴스 API 기반 피드 및 상세 페이지</li>
+              <li>Socket.IO 기반 친구 1:1 채팅 및 알림</li>
+              <li>JWT 인증과 보호 라우팅 설계</li>
+            </BulletList>
+
+            <SectionTitle>담당 역할</SectionTitle>
+            <BulletList>
+              <li>프론트엔드 및 백엔드 전체 개발</li>
+              <li>인증 및 실시간 통신 구조 설계</li>
             </BulletList>
 
             <SectionTitle>이슈 및 해결</SectionTitle>
             <ProblemSolution>
               <strong>이슈</strong><br />
-            친구 추가시 데이터 불일치 발생
-              <br /><br />
+              친구 추가 시 데이터 불일치 발생<br /><br />
               <strong>해결</strong><br />
-           친구 관계 생성 시 양방향 관계(User–Friend)와 알림 생성 로직을 하나의 트랜잭션으로 묶어 처리하여 데이터 무결성 보장
+              양방향 관계와 알림 생성 로직을 하나의 트랜잭션으로 처리
             </ProblemSolution>
 
             <ButtonGroup>
@@ -326,8 +326,9 @@ const ProjectsSection = () => {
             </TitleWrapper>
 
             <MetaInfo>
-              <MetaChip>개발 기간 : 2025.08.04 ~ 2025.09.17</MetaChip>
-              <MetaChip>팀 프로젝트 (프론트엔드 2명, 백엔드 1명)</MetaChip>
+              <MetaChip>2025.08.04 ~ 2025.09.17</MetaChip>
+              <MetaChip>팀 프로젝트</MetaChip>
+              <MetaChip>3인 팀</MetaChip>
             </MetaInfo>
 
             <Description>
@@ -338,7 +339,7 @@ const ProjectsSection = () => {
               { image: sealium_signup },
               { image: dashboard },
               { image: vc_issue },
-              { image: vc_list },
+              { image: vc_list }
             ]} />
 
             <InfoCard>
@@ -354,25 +355,29 @@ const ProjectsSection = () => {
 
           <Right>
             <SummaryBox>
-              VC 발급 및 검증 화면과 상태 관리 구조를 중심으로
-              프론트엔드 주요 기능을 담당한 프로젝트입니다.
+              복잡한 VC 흐름을 UI로 정리하고  
+              상태 관리 구조를 설계한 프론트엔드 프로젝트입니다.
             </SummaryBox>
 
-            <SectionTitle>담당 역할: 프론트</SectionTitle>
+            <SectionTitle>주요 기능</SectionTitle>
             <BulletList>
-              <li>VC 발급 및 조회 핵심 UI 구현</li>
-              <li>React Query + Zustand 상태 관리 구조 설계</li>
+              <li>DID 기반 VC 발급·조회·상태 관리 UI</li>
+              <li>서버 상태와 전역 상태 분리</li>
+              <li>반응형 인증, 대시보드 화면</li>
+            </BulletList>
+
+            <SectionTitle>담당 역할</SectionTitle>
+            <BulletList>
+              <li>프론트엔드 핵심 UI 구현</li>
+              <li>상태 관리 구조 설계</li>
             </BulletList>
 
             <SectionTitle>이슈 및 해결</SectionTitle>
             <ProblemSolution>
               <strong>이슈</strong><br />
-              로그인 이후 리다이렉트 과정에서
-              상태 변경이 반복되며 무한 렌더링이 발생
-              <br /><br />
+              로그인 리다이렉트 무한 렌더링<br /><br />
               <strong>해결</strong><br />
-              리다이렉트 로직을 전역 레이아웃으로 이동하고
-              조건 분기를 추가해 렌더링 루프를 차단
+              전역 레이아웃으로 로직 이동 및 조건 분기 처리
             </ProblemSolution>
 
             <ButtonGroup>
@@ -395,18 +400,19 @@ const ProjectsSection = () => {
             </TitleWrapper>
 
             <MetaInfo>
-              <MetaChip>개발 기간 : 2025.05.16 ~ 2025.06.01</MetaChip>
-              <MetaChip>팀 프로젝트 (프론트엔드 1명, 백엔드 2명)</MetaChip>
+              <MetaChip>2025.05.16 ~ 2025.06.01</MetaChip>
+              <MetaChip>팀 프로젝트</MetaChip>
+              <MetaChip>3인 팀</MetaChip>
             </MetaInfo>
 
             <Description>
-              노션 워크스페이스 공유를 기반으로 한 커뮤니티 플랫폼
+              노션 워크스페이스 공유 기반 커뮤니티 플랫폼
             </Description>
 
             <ModernSlider slides={[
               { image: category },
               { image: post },
-              { image: comment },
+              { image: comment }
             ]} />
 
             <InfoCard>
@@ -422,25 +428,29 @@ const ProjectsSection = () => {
 
           <Right>
             <SummaryBox>
-              게시글과 워크스페이스 기능을 중심으로
-              커뮤니티 사용성을 개선한 프로젝트입니다.
+              커뮤니티 서비스의 기본 구조와  
+              상태 관리 개념을 학습한 프로젝트입니다.
             </SummaryBox>
 
-            <SectionTitle>담당 역할: 프론트, 백엔드</SectionTitle>
+            <SectionTitle>주요 기능</SectionTitle>
+            <BulletList>
+              <li>게시글, 댓글, 좋아요 커뮤니티 기능</li>
+              <li>워크스페이스 첨부 구조</li>
+              <li>카테고리 기반 게시글 필터링</li>
+            </BulletList>
+
+            <SectionTitle>담당 역할</SectionTitle>
             <BulletList>
               <li>게시글 CRUD 및 댓글 기능 구현</li>
-              <li>JWT 인증 미들웨어 도입</li>
+              <li>인증 구조 개선 설계 경험</li>
             </BulletList>
 
             <SectionTitle>이슈 및 해결</SectionTitle>
             <ProblemSolution>
               <strong>이슈</strong><br />
-              게시글과 워크스페이스를 동시에 노출하면서
-              화면 가독성이 크게 저하
-              <br /><br />
+              복합 콘텐츠로 인한 화면 가독성 저하<br /><br />
               <strong>해결</strong><br />
-              워크스페이스 영역을 모달 및 탭 구조로 분리해
-              콘텐츠 집중도를 개선
+              워크스페이스를 모달 및 탭 구조로 분리
             </ProblemSolution>
 
             <ButtonGroup>
@@ -460,18 +470,19 @@ const ProjectsSection = () => {
             </TitleWrapper>
 
             <MetaInfo>
-              <MetaChip>개발 기간 : 2025.04.02 ~ 2025.04.18</MetaChip>
-              <MetaChip>팀 프로젝트 (프론트엔드 1명, 백엔드 2명)</MetaChip>
+              <MetaChip>2025.04.02 ~ 2025.04.18</MetaChip>
+              <MetaChip>팀 프로젝트</MetaChip>
+              <MetaChip>3인 팀</MetaChip>
             </MetaInfo>
 
             <Description>
-              위치 기반으로 동호회를 탐색할 수 있는 웹 서비스
+              위치 기반 동호회 탐색 웹 서비스
             </Description>
 
             <ModernSlider slides={[
               { image: area },
               { image: subway },
-              { image: filter },
+              { image: filter }
             ]} />
 
             <InfoCard>
@@ -486,25 +497,29 @@ const ProjectsSection = () => {
 
           <Right>
             <SummaryBox>
-              지도 기반 탐색 흐름을 개선하며
-              사용자 탐색 경험을 높인 프로젝트입니다.
+              지도 기반 탐색 흐름을 개선하며  
+              위치 기반 UX를 설계한 프로젝트입니다.
             </SummaryBox>
 
-            <SectionTitle>담당 역할 : 프론트, 백엔드</SectionTitle>
+            <SectionTitle>주요 기능</SectionTitle>
             <BulletList>
-              <li>Kakao Map API 연동</li>
-              <li>지역 및 필터링 로직 설계</li>
+              <li>Kakao Map API 기반 위치 마커 시각화</li>
+              <li>지역, 광역 단위 필터링 로직</li>
+              <li>지도와 리스트 상태 동기화</li>
+            </BulletList>
+
+            <SectionTitle>담당 역할</SectionTitle>
+            <BulletList>
+              <li>지도 API 연동</li>
+              <li>탐색 및 필터링 로직 설계</li>
             </BulletList>
 
             <SectionTitle>이슈 및 해결</SectionTitle>
             <ProblemSolution>
               <strong>이슈</strong><br />
-              동일 지역에 여러 동호회가 표시되며
-              지도 마커가 겹치는 문제 발생
-              <br /><br />
+              동일 위치 마커 겹침 문제<br /><br />
               <strong>해결</strong><br />
-              회원 수 기준으로 마커 크기를 차등 적용하고
-              필터 변경 시 지도와 리스트를 동시에 갱신
+              회원 수 기준 마커 크기 차등 적용
             </ProblemSolution>
 
             <ButtonGroup>
@@ -527,18 +542,19 @@ const ProjectsSection = () => {
             </TitleWrapper>
 
             <MetaInfo>
-              <MetaChip>개발 기간 : 2025.02.14 ~ 2025.02.21</MetaChip>
-              <MetaChip>팀 프로젝트 (총 5명, 페이지별 역할 분담)</MetaChip>
+              <MetaChip>2025.02.14 ~ 2025.02.21</MetaChip>
+              <MetaChip>팀 프로젝트</MetaChip>
+              <MetaChip>5인 팀</MetaChip>
             </MetaInfo>
 
             <Description>
-              영화 추천과 사용자 취향 관리를 제공하는 웹 플랫폼
+              서버 없이 구현한 영화 추천 웹 플랫폼
             </Description>
 
             <ModernSlider slides={[
               { image: login },
               { image: signup },
-              { image: mypage },
+              { image: mypage }
             ]} />
 
             <InfoCard>
@@ -553,25 +569,29 @@ const ProjectsSection = () => {
 
           <Right>
             <SummaryBox>
-              인증과 마이페이지 기능을 구현하며
+              인증 구조의 한계를 직접 경험하며  
               웹 서비스 기본 구조를 학습한 프로젝트입니다.
             </SummaryBox>
 
-            <SectionTitle>담당 역할: 로그인, 회원가입, 마이페이지</SectionTitle>
+            <SectionTitle>주요 기능</SectionTitle>
             <BulletList>
-              <li>로그인 및 회원가입 기능 구현</li>
-              <li>마이페이지 조회 및 수정 기능 개발</li>
+              <li>LocalStorage·Cookie 기반 로그인</li>
+              <li>마이페이지 사용자 정보 관리</li>
+              <li>서버 없는 인증 구조 경험</li>
+            </BulletList>
+
+            <SectionTitle>담당 역할</SectionTitle>
+            <BulletList>
+              <li>로그인, 회원가입 구현</li>
+              <li>마이페이지 조회·수정</li>
             </BulletList>
 
             <SectionTitle>이슈 및 해결</SectionTitle>
             <ProblemSolution>
               <strong>이슈</strong><br />
-              로그인 상태가 새로고침 시 유지되지 않고
-              비밀번호가 평문으로 저장되는 구조적 한계 존재
-              <br /><br />
+              인증 보안 구조의 한계<br /><br />
               <strong>해결</strong><br />
-              JWT 기반 인증 구조의 필요성을 인지하고
-              이후 프로젝트에서 보안 설계를 적극 반영
+              JWT 기반 인증 필요성 인지 및 이후 프로젝트에 반영
             </ProblemSolution>
 
             <ButtonGroup>

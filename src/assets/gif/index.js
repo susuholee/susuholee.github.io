@@ -29,7 +29,14 @@ import revoke from "../gif/revoke.mp4";
 import sharelink from "../gif/sharelink.mp4";
 import profile_edit from "../gif/profile_edit.mp4";
 
+// NewSive 
+import newsive_intro from "../gif/newsive_intro.gif";
+import news from "../gif/news.gif";
+import friend_add from "../gif/friend_add.gif";
+import friend_received from "../gif/friend_received.gif";
+import chat from "../gif/caht.gif";
+import media from "../gif/media.gif";
+
 
 export {login ,signup, mypage, area, subway, filter, category, comment, like, post, edit, sealium_signup,
-    sealium_login, dashboard, DID_signup, intro, vc_issue, vc_request, vc_list, vc_detail, revoke, sharelink, profile_edit
-}; 
+    sealium_login, dashboard, DID_signup, intro, vc_issue, vc_request, vc_list, vc_detail, revoke, sharelink, profile_edit, newsive_intro, news, friend_add, friend_received, chat, media}; 
