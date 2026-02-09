@@ -12,7 +12,9 @@ import {
   newsive_intro,
   news,
   friend_add,
-  friend_received
+  friend_received,
+  chat,
+  media
 } from "../../assets/gif";
 
 import {
@@ -263,7 +265,9 @@ const ProjectsSection = () => {
               { image: newsive_intro },
               { image: news },
               { image: friend_add },
-              { image: friend_received }
+              { image: friend_received },
+              { image: chat},
+              { image: media},
             ]} />
 
             <InfoCard>
@@ -307,7 +311,7 @@ const ProjectsSection = () => {
             </ProblemSolution>
 
             <ButtonGroup>
-              <LinkButton href="https://github.com/susuholee/NewSive_FrontEnd" target="_blank">
+              <LinkButton href="https://github.com/susuholee/NewSive_Project" target="_blank">
                 <FaGithub /> GitHub
               </LinkButton>
               <LinkButton href="https://www.newsive.store" target="_blank">
