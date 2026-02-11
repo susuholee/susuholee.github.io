@@ -14,7 +14,6 @@ import styledcomponent from '../icons/styledcomponents.png';
 import react_query from '../icons/react_qeury.png';
 
 // Backend
-import nodejs from '../icons/Node.js.png';
 import nest from "../icons/nest.jpg"
 
 // SQL
@@ -44,10 +43,14 @@ import github from "../icons/github.png";
 import notion from "../icons/notion.png";
 import figma from '../icons/figma.png';
 
+// AI
+import cursorAi from "../icons/cursor.jpeg";
+import windsurf from "../icons/windsurf.jpg";
+
 // 로고
 import naver from "../icons/naver.png";
 import tistory from "../icons/tistory.png"
 
 
-export { html5, css3, tailwind, javascript, typescript, nodejs, Mysql, react, next, react_query, redux, styledcomponent, aws , zustand, kakaomap, git, github, notion, figma,
-naver, tistory, solidity, Sequelize, Postgresql, Prisma, nest};
+export { html5, css3, tailwind, javascript, typescript, Mysql, react, next, react_query, redux, styledcomponent, aws , zustand, kakaomap, git, github, notion, figma,
+naver, tistory, solidity, Sequelize, Postgresql, Prisma, nest, cursorAi, windsurf};

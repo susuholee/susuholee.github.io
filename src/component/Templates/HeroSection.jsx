@@ -185,16 +185,18 @@ const HeroSection = () => {
         >
           <Eyebrow>WEB DEVELOPER</Eyebrow>
 
-          <Heading>
-            서비스 흐름과 안정성을 고민하는<br />
-            <span>개발자 이수호</span>
-          </Heading>
+        <Heading>
+          AI를 서비스에 적용하는<br />
+          <span>개발자 이수호</span>
+        </Heading>
 
-         <SubText>
-          인증, 데이터 설계, 실시간 통신과 같은  
-          <strong>서비스 핵심 로직과 데이터 흐름</strong>을 중심으로  
-          웹 서비스가 안정적으로 동작하는 구조를 고민하며 개발합니다.
-        </SubText>
+          <SubText>
+            Cursor AI와 WindSurf 등 AI 툴을 활용해 
+            기능 설계, 코드 최적화, 테스트 작성까지 
+            개발 전반에 AI를 적극적으로 활용합니다.
+            반복 작업을 자동화하고 생산성을 높이는 
+            개발 방식을 선호합니다.
+          </SubText>
 
           <MainStack>
             주력 스택: <span>JavaScript, React, Node.js</span>

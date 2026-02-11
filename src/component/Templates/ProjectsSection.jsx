@@ -258,7 +258,7 @@ const ProjectsSection = () => {
             </MetaInfo>
 
             <Description>
-              실시간 뉴스 기반 정보 공유와 사용자 소통을 중심으로 한 웹 플랫폼
+             최신 뉴스 기반 정보 공유와 사용자 소통을 중심으로 한 웹 플랫폼
             </Description>
 
             <ModernSlider slides={[
@@ -285,14 +285,14 @@ const ProjectsSection = () => {
 
           <Right>
             <SummaryBox>
-              실시간 통신과 인증 구조를 직접 설계하며  
-              서비스 전반을 단독으로 구현한 프로젝트입니다.
+              Socket 기반 채팅 기능과 인증 기능을 구현하며
+              서비스 전반을 단독으로 개발한 프로젝트입니다.
             </SummaryBox>
 
             <SectionTitle>주요 기능</SectionTitle>
             <BulletList>
-              <li>실시간 뉴스 API 기반 피드 및 상세 페이지</li>
-              <li>Socket.IO 기반 친구 1:1 채팅 및 알림</li>
+              <li>최신 뉴스 API 기반 피드 및 상세 페이지</li>
+              <li>Socket 기반 친구 1:1 채팅 및 알림</li>
               <li>JWT 인증과 보호 라우팅 설계</li>
             </BulletList>
 
@@ -365,7 +365,7 @@ const ProjectsSection = () => {
 
             <SectionTitle>주요 기능</SectionTitle>
             <BulletList>
-              <li>DID 기반 VC 발급·조회·상태 관리 UI</li>
+              <li>DID 기반 VC 발급,조회,상태 관리 UI</li>
               <li>서버 상태와 전역 상태 분리</li>
               <li>반응형 인증, 대시보드 화면</li>
             </BulletList>
@@ -587,7 +587,7 @@ const ProjectsSection = () => {
             <SectionTitle>담당 역할</SectionTitle>
             <BulletList>
               <li>로그인, 회원가입 구현</li>
-              <li>마이페이지 조회·수정</li>
+              <li>마이페이지 조회, 수정</li>
             </BulletList>
 
             <SectionTitle>이슈 및 해결</SectionTitle>

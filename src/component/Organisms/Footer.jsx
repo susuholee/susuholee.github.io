@@ -52,7 +52,7 @@ const LinkRow = styled.div`
   }
 `;
 
-/* ================= Component ================= */
+
 
 const Footer = () => {
   return (
@@ -75,11 +75,11 @@ const Footer = () => {
         </a>
 
         <a
-          href="https://susuholee.tistory.com"
+          href="https://simplecoding77.tistory.com"
           target="_blank"
           rel="noopener noreferrer"
         >
-          기술 블로그
+          티스토리
         </a>
       </LinkRow>
     </FooterWrapper>

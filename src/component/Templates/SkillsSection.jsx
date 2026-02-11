@@ -8,22 +8,14 @@ import {
   tailwind,
   styledcomponent,
   react_query,
-  redux,
   zustand,
-  nodejs,
   nest,
-  Mysql,
   Postgresql,
-  Sequelize,
   Prisma,
-  aws,
-  kakaomap,
-  solidity,
-  git,
-  github,
-  figma,
-  notion,
+  cursorAi,
+  windsurf
 } from "../../assets/icons";
+
 
 
 const Section = styled.section`
@@ -59,13 +51,11 @@ const CategoryTitle = styled.h3`
   padding-left: 0.7rem;
 `;
 
-
 const Flex = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 1.6rem;
 `;
-
 
 const Card = styled.div`
   flex: 0 0 220px;
@@ -73,12 +63,12 @@ const Card = styled.div`
   border-radius: 16px;
   padding: 1.6rem;
   border: 1px solid #eee;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
   transition: all 0.25s ease;
 
   &:hover {
     transform: translateY(-6px);
-    box-shadow: 0 14px 32px rgba(92,58,33,0.18);
+    box-shadow: 0 14px 32px rgba(92, 58, 33, 0.18);
     border-color: #5c3a21;
   }
 
@@ -105,73 +95,119 @@ const Used = styled.p`
   line-height: 1.4;
 `;
 
+/* ===== Skills Data ===== */
 
 const SKILLS = [
+ {
+  title: "프로그래밍 언어",
+  items: [
+    { 
+      name: "JavaScript", 
+      img: javascript,
+      used: "비동기 처리 및 인터랙션 로직 구현"
+    },
+    { 
+      name: "TypeScript", 
+      img: typescript,
+      used: "타입 기반 데이터 구조 설계 및 안정적인 코드 작성"
+    },
+  ],
+},
   {
-    title: "프론트엔드 / UI",
+    title: "프레임워크",
     items: [
-      { name: "JavaScript", img: javascript, used: "NewSive, Sealium, Notionary" },
-      { name: "TypeScript", img: typescript, used: "NewSive" },
-      { name: "React", img: react, used: "NewSive, Sealium, Notionary" },
-      { name: "Next.js", img: next, used: "NewSive, Sealium" },
-      { name: "Tailwind CSS", img: tailwind, used: "NewSive, Sealium" },
-      { name: "Styled-Components", img: styledcomponent, used: "Notionary" },
+      {
+        name: "Next.js",
+        img: next,
+        used: "서버 사이드 렌더링을 기반으로 초기 데이터 처리 및 컴포넌트 구조 설계",
+      },
+      {
+        name: "NestJS",
+        img: nest,
+        used: "모듈 기반 아키텍처 설계 및 Controller/Service 계층 구조 설계",
+      },
+    ],
+  },
+  {
+    title: "라이브러리",
+    items: [
+      {
+        name: "React",
+        img: react,
+        used: "함수형 컴포넌트 기반 UI 설계 및 재사용 가능한 구조 설계",
+      },
     ],
   },
   {
     title: "상태 관리 / 데이터 흐름",
     items: [
-      { name: "React Query", img: react_query, used: "NewSive, Sealium, Notionary" },
-      { name: "Zustand", img: zustand, used: "NewSive, Sealium" },
-      { name: "Redux", img: redux, used: "Notionary" },
+      {
+        name: "React Query",
+        img: react_query,
+        used: "서버 상태 관리 및 API 캐싱 전략 적용",
+      },
+      {
+        name: "Zustand",
+        img: zustand,
+        used: "전역 UI 상태 및 사용자 인터랙션 상태 관리",
+      },
     ],
   },
   {
-    title: "백엔드 / 서버",
+    title: "스타일링",
     items: [
-      { name: "Node.js", img: nodejs, used: "NewSive, Scoop" },
-      { name: "NestJS", img: nest, used: "NewSive, Sealium" },
+      {
+        name: "Tailwind CSS",
+        img: tailwind,
+        used: "유틸리티 클래스를 활용해 빠른 UI 구성 및 반응형 레이아웃 구현",
+      },
+      {
+        name: "Styled-Components",
+        img: styledcomponent,
+        used: "컴포넌트 단위로 스타일을 분리하고 props 기반으로 동적인 스타일을 제어하기 위해 사용",
+      },
     ],
   },
   {
-    title: "데이터베이스 / ORM",
+    title: "데이터베이스",
     items: [
-      { name: "MySQL", img: Mysql, used: "Notionary, Scoop" },
-      { name: "PostgreSQL", img: Postgresql, used: "NewSive" },
-      { name: "Sequelize", img: Sequelize, used: "Notionary, Scoop" },
-      { name: "Prisma", img: Prisma, used: "NewSive" },
+      {
+        name: "PostgreSQL",
+        img: Postgresql,
+        used: "관계형 데이터 구조 설계 및 정규화 기반 모델링",
+      },
+      {
+        name: "Prisma",
+        img: Prisma,
+        used: "타입 기반 ORM을 활용한 데이터 접근 로직 구현",
+      },
     ],
   },
   {
-    title: "인프라",
+    title: "AI 기반 개발 워크플로우",
     items: [
-      { name: "AWS", img: aws, used: "NewSive, Sealium, Notionary, Scoop" },
-    ],
-  },
-  {
-    title: "외부 API / 기타 경험",
-    items: [
-      { name: "Kakao Map API", img: kakaomap, used: "Scoop" },
-      { name: "Solidity", img: solidity, used: "Sealium" },
-    ],
-  },
-  {
-    title: "협업 도구",
-    items: [
-      { name: "Git", img: git },
-      { name: "GitHub", img: github },
-      { name: "Figma", img: figma },
-      { name: "Notion", img: notion },
+      {
+        name: "Cursor AI",
+        img: cursorAi,
+        used: "기능 구현 가속 및 반복 작업 자동화",
+      },
+      {
+        name: "Windsurf",
+        img: windsurf,
+        used: "프로젝트 코드 분석 및 자동 코드 생성 경험",
+      },
     ],
   },
 ];
+
+
 
 const SkillsSection = () => {
   return (
     <Section id="skills">
       <Title>기술 스택</Title>
       <Description>
-        실제 프로젝트에서 문제를 해결하며 사용한 기술들입니다
+        실제 프로젝트에서 문제를 해결하며 활용한 기술과 개발 도구입니다.
       </Description>
 
       {SKILLS.map((group) => (
@@ -180,11 +216,9 @@ const SkillsSection = () => {
           <Flex>
             {group.items.map((skill) => (
               <Card key={skill.name}>
-                <Icon src={skill.img} alt={skill.name} />
+                {skill.img && <Icon src={skill.img} alt={skill.name} />}
                 <Name>{skill.name}</Name>
-                {skill.used && (
-                  <Used>프로젝트 경험: {skill.used}</Used>
-                )}
+                {skill.used && <Used>{skill.used}</Used>}
               </Card>
             ))}
           </Flex>
