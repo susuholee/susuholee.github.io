@@ -1,10 +1,11 @@
 {
   "files": {
     "main.css": "/static/css/main.93f0cead.css",
-    "main.js": "/static/js/main.1e715975.js",
+    "main.js": "/static/js/main.fcf08ac5.js",
     "static/js/453.64a0147b.chunk.js": "/static/js/453.64a0147b.chunk.js",
     "static/media/post.gif": "/static/media/post.6aa3fba49267e0df35ae.gif",
     "static/media/edit.gif": "/static/media/edit.7c706cac401ba5d3c1e0.gif",
+    "static/media/travel_intro.mp4": "/static/media/travel_intro.7559268a0ed8e276c9ca.mp4",
     "static/media/comment.gif": "/static/media/comment.8b1761918a4c902beadb.gif",
     "static/media/area.gif": "/static/media/area.09c6549da1d357466e01.gif",
     "static/media/DID_signup.mp4": "/static/media/DID_signup.8e9291bcd40e729579a2.mp4",
@@ -15,6 +16,7 @@
     "static/media/profile_edit.mp4": "/static/media/profile_edit.a3c9110b418385ffdab2.mp4",
     "static/media/media.gif": "/static/media/media.e77d00eed356f867b2f0.gif",
     "static/media/vc_issue.mp4": "/static/media/vc_issue.e3c5113892ff432a2b83.mp4",
+    "static/media/service.mp4": "/static/media/service.4718cc876435af928503.mp4",
     "static/media/sealium_login.mp4": "/static/media/sealium_login.1b703ecb4a27da470218.mp4",
     "static/media/intro.mp4": "/static/media/intro.fbfebc4ab01752c4c99b.mp4",
     "static/media/vc_request.mp4": "/static/media/vc_request.0ae30496697a2343793f.mp4",
@@ -44,17 +46,18 @@
     "static/media/prisma.jpg": "/static/media/prisma.c51483f27c655c63925d.jpg",
     "static/media/windsurf.jpg": "/static/media/windsurf.e9efa48262caeccbc4c8.jpg",
     "static/media/html.png": "/static/media/html.2cd5d05c9660ec55992e.png",
+    "static/media/supabase.jpg": "/static/media/supabase.52d503269d57da5acc79.jpg",
     "static/media/nest.jpg": "/static/media/nest.87b5400db33ca7022b09.jpg",
     "static/media/Sequelize.png": "/static/media/Sequelize.0839ae19c2711b7b5979.png",
     "static/media/typescript.png": "/static/media/typescript.418d8e136af2ef5310c8.png",
     "static/media/notion.png": "/static/media/notion.7aa264a898951e791ee3.png",
     "index.html": "/index.html",
     "main.93f0cead.css.map": "/static/css/main.93f0cead.css.map",
-    "main.1e715975.js.map": "/static/js/main.1e715975.js.map",
+    "main.fcf08ac5.js.map": "/static/js/main.fcf08ac5.js.map",
     "453.64a0147b.chunk.js.map": "/static/js/453.64a0147b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.93f0cead.css",
-    "static/js/main.1e715975.js"
+    "static/js/main.fcf08ac5.js"
   ]
 }
