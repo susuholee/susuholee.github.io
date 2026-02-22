@@ -9,7 +9,7 @@ const Card = styled.div`
 `;
 
 const Title = styled.h3`
-  color: #5c3a21;
+  color: #3D7EAA;
   margin-bottom: 0.5rem;
 `;
 
