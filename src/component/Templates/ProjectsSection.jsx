@@ -393,7 +393,7 @@ const ProjectsSection = () => {
                 <Title>여행성향연구소</Title>
               </TitleWrapper>
               <MetaInfo>
-                <MetaChip>2025.02.16 ~ 2025.02.20</MetaChip>
+                <MetaChip>2026.02.16 ~ 2026.02.20</MetaChip>
                 <MetaChip>개인 프로젝트</MetaChip>
                 <MetaChip>1인 개발</MetaChip>
               </MetaInfo>
