@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.93f0cead.css",
-    "main.js": "/static/js/main.8080b040.js",
+    "main.js": "/static/js/main.5c0c7c35.js",
     "static/js/453.64a0147b.chunk.js": "/static/js/453.64a0147b.chunk.js",
     "static/media/post.gif": "/static/media/post.6aa3fba49267e0df35ae.gif",
     "static/media/edit.gif": "/static/media/edit.7c706cac401ba5d3c1e0.gif",
@@ -41,6 +41,7 @@
     "static/media/react_logo.png": "/static/media/react_logo.bafc2a1dcbb5c8d3aefc.png",
     "static/media/scoop.png": "/static/media/scoop.f10b5e77387ac8931e44.png",
     "static/media/tailwindcss.png": "/static/media/tailwindcss.54b45f9604cc9db79620.png",
+    "static/media/antigravity-icon.png": "/static/media/antigravity-icon.def0b583d8e6671b414c.png",
     "static/media/kakaomap.png": "/static/media/kakaomap.67a4d5aec941b34b6be0.png",
     "static/media/tistory.png": "/static/media/tistory.42ed789be263afa598e7.png",
     "static/media/prisma.jpg": "/static/media/prisma.c51483f27c655c63925d.jpg",
@@ -53,11 +54,11 @@
     "static/media/notion.png": "/static/media/notion.7aa264a898951e791ee3.png",
     "index.html": "/index.html",
     "main.93f0cead.css.map": "/static/css/main.93f0cead.css.map",
-    "main.8080b040.js.map": "/static/js/main.8080b040.js.map",
+    "main.5c0c7c35.js.map": "/static/js/main.5c0c7c35.js.map",
     "453.64a0147b.chunk.js.map": "/static/js/453.64a0147b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.93f0cead.css",
-    "static/js/main.8080b040.js"
+    "static/js/main.5c0c7c35.js"
   ]
 }
