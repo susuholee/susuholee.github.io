@@ -47,6 +47,7 @@ import figma from '../icons/figma.png';
 import cursorAi from "../icons/cursor.jpeg";
 import windsurf from "../icons/windsurf.jpg";
 import claudeCode from "../icons/claude.png";
+import antigravity from "../icons/antigravity-icon.png";
 
 // BaaS
 import supabase from "../icons/supabase.jpg";
@@ -57,4 +58,4 @@ import tistory from "../icons/tistory.png"
 
 
 export { html5, css3, tailwind, javascript, typescript, Mysql, react, next, react_query, redux, styledcomponent, aws , zustand, kakaomap, git, github, notion, figma,
-naver, tistory, solidity, Sequelize, Postgresql, Prisma, nest, cursorAi, windsurf, claudeCode, supabase };
+naver, tistory, solidity, Sequelize, Postgresql, Prisma, nest, cursorAi, windsurf, claudeCode, supabase, antigravity };

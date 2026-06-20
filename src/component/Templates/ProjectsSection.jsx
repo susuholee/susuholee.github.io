@@ -615,9 +615,6 @@ trim() 처리를 추가하고, 이메일 형식 및 닉네임 유효성 검증 �
                 <LinkButton href="https://github.com/susuholee/DID_project_Client" target="_blank">
                   <FaGithub /> GitHub
                 </LinkButton>
-                <LinkButton href="https://sealiumback.store" target="_blank">
-                  <FiExternalLink /> 배포
-                </LinkButton>
               </ButtonGroup>
             </Right>
           </ProjectCard>
@@ -639,9 +636,9 @@ trim() 처리를 추가하고, 이메일 형식 및 닉네임 유효성 검증 �
                 노션 워크스페이스 공유 기반 커뮤니티 플랫폼
               </Description>
               <ModernSlider slides={[
-                { image: category },
-                { image: post },
-                { image: comment }
+              { image: category },
+              { image: post },
+              { image: comment }
               ]} />
               <InfoCard>
                 <StackTitle>기술 스택</StackTitle>

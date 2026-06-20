@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { SiGoogle, SiOpenai } from "react-icons/si";
 import {
   javascript,
   typescript,
@@ -15,7 +16,8 @@ import {
   cursorAi,
   windsurf,
   claudeCode,
-  supabase
+  supabase,
+  antigravity
 } from "../../assets/icons";
 
 const Section = styled.section`
@@ -114,6 +116,18 @@ const Icon = styled.img`
   flex-shrink: 0;
 `;
 
+const ToolIcon = styled.div`
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+  flex-shrink: 0;
+  color: #111827;
+  font-size: 28px;
+`;
+
 const CardText = styled.div`
   flex: 1;
   min-width: 0;
@@ -186,6 +200,8 @@ const SKILLS = [
       { name: "Cursor AI", img: cursorAi, used: "기능 구현 가속 및 반복 작업 자동화" },
       { name: "Windsurf", img: windsurf, used: "프로젝트 코드 분석 및 자동 코드 생성 경험" },
       { name: "Claude Code", img: claudeCode, used: "AI 기반 코드 설계 및 프롬프트 엔지니어링 활용" },
+      { name: "Codex", icon: SiOpenai, used: "AI 기반 코드 작성, 리팩터링 및 개발 작업 자동화" },
+      { name: "Antigravity", img: antigravity, used: "AI 에이전트 기반 코드 생성 및 개발 작업 자동화" },
     ],
   },
 ];
@@ -207,6 +223,11 @@ const SkillsSection = () => {
               {group.items.map((skill) => (
                 <Card key={skill.name}>
                   {skill.img && <Icon src={skill.img} alt={skill.name} />}
+                  {skill.icon && (
+                    <ToolIcon aria-hidden="true">
+                      <skill.icon />
+                    </ToolIcon>
+                  )}
                   <CardText>
                     <Name>{skill.name}</Name>
                     {skill.used && <Used>{skill.used}</Used>}
