@@ -169,7 +169,7 @@ const ScrollLine = styled(motion.div)`
   background: linear-gradient(to bottom, #a1a1aa, transparent);
 `;
 
-const HeroSection = () => {
+const HeroSection = ({ setProjectFilter }) => {
   return (
     <Section id="hero">
       <Container>
@@ -186,27 +186,26 @@ const HeroSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.15, ease: "easeOut" }}
         >
-          <Eyebrow>Web Developer</Eyebrow>
+          <Eyebrow>AI Specialist & Creator</Eyebrow>
 
           <Heading>
-            변화하는 개발 흐름을 따라가는<br />
-            <span>개발자 이수호</span>
+            AI 기술로 개발부터 영상까지<br />
+            <span>혁신하는 크리에이터 이수호</span>
           </Heading>
 
           <SubText>
-            시대가 변화하는 만큼 개발도 변화합니다.
-            노 코드 기반, BaaS 서비스를 통해 개발 속도를 높이고,
-            Cursor AI, Claude Code 등 AI 툴을 활용해
-            반복 작업을 자동화하는 개발 트렌드를 적극적으로 따르고 있습니다.
+            기술의 한계를 넘나들며 개발과 영상 제작의 패러다임을 변화시킵니다.
+            생성형 AI와 최신 기술 스택을 활용하여,
+            아이디어를 신속하게 프로토타이핑하고 감각적인 스토리와 실용적인 코드로 구현하는 융합형 크리에이티브를 지향합니다.
           </SubText>
 
           <MainStack>
-            주력 스택: <span>JavaScript, React, Node.js</span>
+            주요 도구: <span>Google FLOW</span>
           </MainStack>
 
           <Actions>
-            <PrimaryButton to="projects" smooth duration={500}>
-              프로젝트 보기
+            <PrimaryButton to="projects" smooth duration={500} onClick={() => setProjectFilter("video")}>
+              영상 프로젝트 보기
             </PrimaryButton>
             <GhostButton
               href="https://github.com/susuholee"

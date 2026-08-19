@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { createGlobalStyle } from "styled-components";
 import Header from "./component/Organisms/Header";
 import HeroSection from "./component/Templates/HeroSection";
@@ -23,15 +24,17 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function App() {
+  const [projectFilter, setProjectFilter] = useState("all");
+
   return (
     <>
       <GlobalStyle />
       <Header />
       <main>
-        <HeroSection />
+        <HeroSection setProjectFilter={setProjectFilter} />
         <AboutSection />
         <SkillsSection />
-        <ProjectsSection />
+        <ProjectsSection projectFilter={projectFilter} setProjectFilter={setProjectFilter} />
         <ContactSection />
       </main>
       <Footer />

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { SiGoogle, SiOpenai } from "react-icons/si";
+import { SiOpenai } from "react-icons/si";
 import {
   javascript,
   typescript,
@@ -17,7 +17,8 @@ import {
   windsurf,
   claudeCode,
   supabase,
-  antigravity
+  antigravity,
+  flow
 } from "../../assets/icons";
 
 const Section = styled.section`
@@ -202,6 +203,12 @@ const SKILLS = [
       { name: "Claude Code", img: claudeCode, used: "AI 기반 코드 설계 및 프롬프트 엔지니어링 활용" },
       { name: "Codex", icon: SiOpenai, used: "AI 기반 코드 작성, 리팩터링 및 개발 작업 자동화" },
       { name: "Antigravity", img: antigravity, used: "AI 에이전트 기반 코드 생성 및 개발 작업 자동화" },
+    ],
+  },
+  {
+    title: "AI 영상 도구",
+    items: [
+      { name: "Google FLOW", img: flow, used: "AI 기반 영상 제작 도구로 포트폴리오 영상 및 소개 영상 제작" },
     ],
   },
 ];

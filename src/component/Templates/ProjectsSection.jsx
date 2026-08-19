@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import { FaGithub, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaGithub, FaChevronLeft, FaChevronRight, FaVolumeMute, FaVolumeUp } from "react-icons/fa";
 import { FiExternalLink } from "react-icons/fi";
 
 import {
@@ -23,6 +23,9 @@ import {
   nodeconnect, scoop, notionary_logo,
   Sealium_logo, NewSive_logo
 } from "../../assets/logo";
+
+import myStoryVideo from "../../assets/my_story.mp4";
+import watchAdviceVideo from "../../assets/watch_advice.mp4";
 
 /* ================= Slider ================= */
 
@@ -63,13 +66,57 @@ const Arrow = styled.button`
   &:hover { background: rgba(0,0,0,0.75); }
 `;
 
+const VideoWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+`;
+
+const MuteButton = styled.button`
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  cursor: pointer;
+  z-index: 5;
+  transition: background 0.2s, transform 0.2s;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.8);
+    transform: scale(1.1);
+  }
+`;
+
 const SlideMedia = ({ src }) => {
   const isVideo = src.endsWith(".mp4");
-  return isVideo ? (
-    <video src={src} autoPlay muted loop playsInline
-      style={{ width: "100%", height: "100%", objectFit: "contain" }} />
-  ) : (
-    <img src={src} alt="" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+  const [muted, setMuted] = useState(true);
+
+  if (!isVideo) {
+    return <img src={src} alt="" style={{ width: "100%", height: "100%", objectFit: "contain" }} />;
+  }
+
+  return (
+    <VideoWrapper>
+      <video
+        src={src}
+        autoPlay
+        muted={muted}
+        loop
+        playsInline
+        style={{ width: "100%", height: "100%", objectFit: "contain" }}
+      />
+      <MuteButton onClick={() => setMuted(!muted)}>
+        {muted ? <FaVolumeMute size={16} /> : <FaVolumeUp size={16} />}
+      </MuteButton>
+    </VideoWrapper>
   );
 };
 
@@ -96,11 +143,12 @@ const ModernSlider = ({ slides }) => {
   const next = () => setIndex((i) => (i + 1) % slides.length);
   const prev = () => setIndex((i) => (i - 1 + slides.length) % slides.length);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
-    const id = setInterval(next, 5000);
+    const id = setInterval(() => {
+      setIndex((i) => (i + 1) % slides.length);
+    }, 5000);
     return () => clearInterval(id);
-  }, []);
+  }, [slides.length]);
 
   return (
     <SliderWrapper>
@@ -155,7 +203,7 @@ const ProjectList = styled.div`
 `;
 
 const ProjectCard = styled.div`
-  display: grid;
+  display: ${({ show }) => (show ? "grid" : "none")};
   grid-template-columns: 1fr 1fr;
   gap: 3rem;
   padding: 3.5rem 0;
@@ -164,6 +212,7 @@ const ProjectCard = styled.div`
   &:last-child { border-bottom: 1px solid #e2e8f0; }
 
   @media (max-width: 900px) {
+    display: ${({ show }) => (show ? "grid" : "none")};
     grid-template-columns: 1fr;
     gap: 2rem;
     padding: 2.5rem 0;
@@ -374,7 +423,33 @@ const PromptText = styled.p`
   white-space: pre-line;
 `;
 
-const ProjectsSection = () => {
+const TabWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-bottom: 3.5rem;
+`;
+
+const TabButton = styled.button`
+  padding: 0.55rem 1.5rem;
+  border-radius: 999px;
+  border: 1.5px solid ${({ active }) => (active ? "#3D7EAA" : "#cbd5e1")};
+  background: ${({ active }) => (active ? "#3D7EAA" : "#fff")};
+  color: ${({ active }) => (active ? "#fff" : "#475569")};
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.22s ease;
+
+  &:hover {
+    border-color: #3D7EAA;
+    color: ${({ active }) => (active ? "#fff" : "#3D7EAA")};
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(61,126,170,0.15);
+  }
+`;
+
+const ProjectsSection = ({ projectFilter, setProjectFilter }) => {
   const [travelTab, setTravelTab] = useState("design");
 
   return (
@@ -383,12 +458,106 @@ const ProjectsSection = () => {
         <SectionLabel>Projects</SectionLabel>
         <Heading>프로젝트</Heading>
 
+        <TabWrapper>
+          <TabButton active={projectFilter === "all"} onClick={() => setProjectFilter("all")}>전체보기</TabButton>
+          <TabButton active={projectFilter === "video"} onClick={() => setProjectFilter("video")}>AI 영상 제작</TabButton>
+          <TabButton active={projectFilter === "web"} onClick={() => setProjectFilter("web")}>웹 개발</TabButton>
+        </TabWrapper>
+
         <ProjectList>
 
-          {/* 01 - 여행성향연구소 */}
-          <ProjectCard>
+          {/* 01 - Watch Advertisement */}
+          <ProjectCard show={projectFilter === "all" || projectFilter === "video"}>
             <Left>
-              <ProjectNum>01 — Personal Project</ProjectNum>
+              <ProjectNum>01 — Watch Advertisement</ProjectNum>
+              <TitleWrapper>
+                <Title>시계 광고 영상</Title>
+              </TitleWrapper>
+              <MetaInfo>
+                <MetaChip>2026.08.12</MetaChip>
+                <MetaChip>광고 영상 제작</MetaChip>
+                <MetaChip>1인 제작</MetaChip>
+              </MetaInfo>
+              <Description>
+                AI 기술을 활용하여 제작한 고급 시계 광고 영상입니다.
+              </Description>
+              <ModernSlider slides={[
+                { image: watchAdviceVideo },
+              ]} />
+              <InfoCard>
+                <StackTitle>기술 스택</StackTitle>
+                <TechStack>
+                  <li>Google Flow</li>
+                </TechStack>
+              </InfoCard>
+            </Left>
+            <Right>
+              <SummaryBox>
+                고급스러움과 정교함을 시각적으로 연출하기 위해 AI 이미지/비디오 생성 툴을 연계하여 제작한 단편 광고 영상입니다.
+              </SummaryBox>
+              <SectionTitle>영상 주요 내용</SectionTitle>
+              <BulletList>
+                <li>시계의 세련된 디자인과 초침 움직임의 클로즈업 연출</li>
+                <li>빛과 그림자의 대비를 통한 프리미엄 감성 극대화</li>
+                <li>세련되고 묵직한 사운드 트랙과의 싱크로나이즈</li>
+              </BulletList>
+              <SectionTitle>담당 역할</SectionTitle>
+              <BulletList>
+                <li>영상 콘셉트 기획 및 스토리보드 작성</li>
+                <li>AI 이미지 생성 및 비디오 변환 프롬프트 엔지니어링</li>
+                <li>영상 편집, 사운드 디자인 및 후반 보정</li>
+              </BulletList>
+            </Right>
+          </ProjectCard>
+
+          {/* 02 - My Story */}
+          <ProjectCard show={projectFilter === "all" || projectFilter === "video"}>
+            <Left>
+              <ProjectNum>02 — My Story</ProjectNum>
+              <TitleWrapper>
+                <Title>My Story (나의 이야기)</Title>
+              </TitleWrapper>
+              <MetaInfo>
+                <MetaChip>2026.08.09</MetaChip>
+                <MetaChip>나의 이야기</MetaChip>
+                <MetaChip>1인 제작</MetaChip>
+              </MetaInfo>
+              <Description>
+                나의 이야기를 담은 영상입니다.
+              </Description>
+              <ModernSlider slides={[
+                { image: myStoryVideo },
+              ]} />
+              <InfoCard>
+                <StackTitle>기술 스택</StackTitle>
+                <TechStack>
+                  <li>Google Flow</li>
+                </TechStack>
+              </InfoCard>
+            </Left>
+            <Right>
+              <SummaryBox>
+                어제보다 오늘 더 발전하며, 변화하는 웹 개발 트렌드를 적극적으로 학습하고 적용하는 이수호의 이야기입니다.
+              </SummaryBox>
+              <SectionTitle>영상 주요 내용</SectionTitle>
+              <BulletList>
+                <li>개발을 시작하게 된 계기와 공부 과정</li>
+                <li>프로젝트 수행을 통해 깨달은 협업과 문제 해결 능력</li>
+                <li>AI 영상 제작 툴 활용</li>
+                <li>어떤 개발자가 되고 싶은지에 대한 비전 제시</li>
+              </BulletList>
+              <SectionTitle>담당 역할</SectionTitle>
+              <BulletList>
+                <li>영상 기획 및 스크립트 작성</li>
+                <li>영상 촬영, 편집 및 자막 제작</li>
+              </BulletList>
+            </Right>
+          </ProjectCard>
+
+          {/* 03 - 여행성향연구소 */}
+          <ProjectCard show={projectFilter === "all" || projectFilter === "web"}>
+            <Left>
+              <ProjectNum>03 — Personal Project</ProjectNum>
               <TitleWrapper>
                 <Title>여행성향연구소</Title>
               </TitleWrapper>
@@ -454,7 +623,7 @@ Supabase Auth 기반을 따른다
 - JWT를 직접 생성하거나 저장하지 않음
 - 쿠키 기반 세션 유지 구조로 설계`}</PromptText>
                   ) : (
-<PromptText>{`AI가 생성한 초기 코드에서 발견한 문제와 개선 내용
+                    <PromptText>{`AI가 생성한 초기 코드에서 발견한 문제와 개선 내용
 
 이메일 인증 처리 로직 보완
 - 초기 AI 설계에서는 이메일 인증 이후 유저가 생성되는 구조로 제안되었으나,
@@ -486,10 +655,10 @@ trim() 처리를 추가하고, 이메일 형식 및 닉네임 유효성 검증 �
             </Right>
           </ProjectCard>
 
-          {/* 02 - NewSive */}
-          <ProjectCard>
+          {/* 04 - NewSive */}
+          <ProjectCard show={projectFilter === "all" || projectFilter === "web"}>
             <Left>
-              <ProjectNum>02 — Personal Project</ProjectNum>
+              <ProjectNum>04 — Personal Project</ProjectNum>
               <TitleWrapper>
                 <ProjectLogo src={NewSive_logo} />
                 <Title>NewSive</Title>
@@ -556,10 +725,10 @@ trim() 처리를 추가하고, 이메일 형식 및 닉네임 유효성 검증 �
             </Right>
           </ProjectCard>
 
-          {/* 03 - Sealium */}
-          <ProjectCard>
+          {/* 05 - Sealium */}
+          <ProjectCard show={projectFilter === "all" || projectFilter === "web"}>
             <Left>
-              <ProjectNum>03 — Team Project</ProjectNum>
+              <ProjectNum>05 — Team Project</ProjectNum>
               <TitleWrapper>
                 <ProjectLogo src={Sealium_logo} />
                 <Title>Sealium</Title>
@@ -619,10 +788,10 @@ trim() 처리를 추가하고, 이메일 형식 및 닉네임 유효성 검증 �
             </Right>
           </ProjectCard>
 
-          {/* 04 - Notionary */}
-          <ProjectCard>
+          {/* 06 - Notionary */}
+          <ProjectCard show={projectFilter === "all" || projectFilter === "web"}>
             <Left>
-              <ProjectNum>04 — Team Project</ProjectNum>
+              <ProjectNum>06 — Team Project</ProjectNum>
               <TitleWrapper>
                 <ProjectLogo src={notionary_logo} />
                 <Title>Notionary</Title>
@@ -636,9 +805,9 @@ trim() 처리를 추가하고, 이메일 형식 및 닉네임 유효성 검증 �
                 노션 워크스페이스 공유 기반 커뮤니티 플랫폼
               </Description>
               <ModernSlider slides={[
-              { image: category },
-              { image: post },
-              { image: comment }
+                { image: category },
+                { image: post },
+                { image: comment }
               ]} />
               <InfoCard>
                 <StackTitle>기술 스택</StackTitle>
@@ -681,10 +850,10 @@ trim() 처리를 추가하고, 이메일 형식 및 닉네임 유효성 검증 �
             </Right>
           </ProjectCard>
 
-          {/* 05 - Scoop */}
-          <ProjectCard>
+          {/* 07 - Scoop */}
+          <ProjectCard show={projectFilter === "all" || projectFilter === "web"}>
             <Left>
-              <ProjectNum>05 — Team Project</ProjectNum>
+              <ProjectNum>07 — Team Project</ProjectNum>
               <TitleWrapper>
                 <ProjectLogo src={scoop} />
                 <Title>Scoop</Title>
@@ -745,10 +914,10 @@ trim() 처리를 추가하고, 이메일 형식 및 닉네임 유효성 검증 �
             </Right>
           </ProjectCard>
 
-          {/* 06 - Node_Connect */}
-          <ProjectCard>
+          {/* 08 - Node_Connect */}
+          <ProjectCard show={projectFilter === "all" || projectFilter === "web"}>
             <Left>
-              <ProjectNum>06 — Team Project</ProjectNum>
+              <ProjectNum>08 — Team Project</ProjectNum>
               <TitleWrapper>
                 <ProjectLogo src={nodeconnect} />
                 <Title>Node_Connect</Title>
