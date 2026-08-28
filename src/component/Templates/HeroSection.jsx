@@ -207,6 +207,9 @@ const HeroSection = ({ setProjectFilter }) => {
             <PrimaryButton to="projects" smooth duration={500} onClick={() => setProjectFilter("video")}>
               영상 프로젝트 보기
             </PrimaryButton>
+            <PrimaryButton to="projects" smooth duration={500} onClick={() => setProjectFilter("web")}>
+              개발 프로젝트 보기
+            </PrimaryButton>
             <GhostButton
               href="https://github.com/susuholee"
               target="_blank"

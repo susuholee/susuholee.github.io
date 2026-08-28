@@ -21,11 +21,12 @@ import {
 
 import {
   nodeconnect, scoop, notionary_logo,
-  Sealium_logo, NewSive_logo
+  Sealium_logo, NewSive_logo, daycanvas_logo
 } from "../../assets/logo";
 
 import myStoryVideo from "../../assets/my_story.mp4";
 import watchAdviceVideo from "../../assets/watch_advice.mp4";
+import footfallVideo from "../../assets/footfall.mp4";
 
 /* ================= Slider ================= */
 
@@ -554,10 +555,133 @@ const ProjectsSection = ({ projectFilter, setProjectFilter }) => {
             </Right>
           </ProjectCard>
 
-          {/* 03 - 여행성향연구소 */}
+          {/* 03 - Futsal Shoes Advertisement */}
+          <ProjectCard show={projectFilter === "all" || projectFilter === "video"}>
+            <Left>
+              <ProjectNum>03 — Futsal Shoes Advertisement</ProjectNum>
+              <TitleWrapper>
+                <Title>풋살화 광고 영상</Title>
+              </TitleWrapper>
+              <MetaInfo>
+                <MetaChip>2026.08.21</MetaChip>
+                <MetaChip>광고 영상 제작</MetaChip>
+                <MetaChip>1인 제작</MetaChip>
+              </MetaInfo>
+              <Description>
+                AI 기술을 활용하여 제작한 풋살화 광고 영상입니다.
+              </Description>
+              <ModernSlider slides={[
+                { image: footfallVideo },
+              ]} />
+              <InfoCard>
+                <StackTitle>기술 스택</StackTitle>
+                <TechStack>
+                  <li>Newtake AI</li>
+                </TechStack>
+              </InfoCard>
+            </Left>
+            <Right>
+              <SummaryBox>
+                역동적이고 역동적인 스포츠 브랜드 감성을 살리기 위해 AI 비디오 생성 프롬프트를 고도화하여 제작한 광고 영상입니다.
+              </SummaryBox>
+              <SectionTitle>영상 주요 내용</SectionTitle>
+              <BulletList>
+                <li>풋살화의 다이내믹한 움직임과 디테일한 재질감의 클로즈업 연출</li>
+                <li>스피디한 카메라 무빙과 교차 편집을 통해 스포츠 감성 극대화</li>
+                <li>비트감 있고 강렬한 사운드 디자인과의 완벽한 싱크로율</li>
+              </BulletList>
+              <SectionTitle>담당 역할</SectionTitle>
+              <BulletList>
+                <li>영상 기획, 연출 및 스토리보드 작성</li>
+                <li>AI 프롬프트 엔지니어링을 통한 이미지 생성 및 비디오 업스케일링</li>
+                <li>영상 편집, 사운드 디자인 및 오디오 믹싱</li>
+              </BulletList>
+            </Right>
+          </ProjectCard>
+
+
+          {/* 05 - DayCanvas */}
           <ProjectCard show={projectFilter === "all" || projectFilter === "web"}>
             <Left>
-              <ProjectNum>03 — Personal Project</ProjectNum>
+              <ProjectNum>05 — Personal Project</ProjectNum>
+              <TitleWrapper>
+                <ProjectLogo src={daycanvas_logo} />
+                <Title>DayCanvas</Title>
+              </TitleWrapper>
+              <MetaInfo>
+                <MetaChip>2026.04.12 ~ 2026.04.14</MetaChip>
+                <MetaChip>개인 프로젝트</MetaChip>
+                <MetaChip>1인 개발</MetaChip>
+              </MetaInfo>
+              <Description>
+                구글 캘린더 연동과 포스트잇 메모를 결합한 개인 맞춤형 일정 & 메모 캔버스 플랫폼
+              </Description>
+              <ModernSlider slides={[
+                { image: newsive_intro },
+                { image: news },
+                { image: friend_add },
+                { image: friend_received },
+                { image: chat },
+                { image: media },
+              ]} />
+              <InfoCard>
+                <StackTitle>기술 스택</StackTitle>
+                <TechStack>
+                  <li>React (Vite)</li>
+                  <li>TypeScript</li>
+                  <li>Tailwind CSS</li>
+                  <li>React Query</li>
+                  <li>Supabase</li>
+                  <li>date-fns</li>
+                  <li>Framer Motion</li>
+                  <li>Axios</li>
+                </TechStack>
+              </InfoCard>
+            </Left>
+            <Right>
+              <SummaryBox>
+                구글 캘린더 API 실시간 연동 및 Supabase 기반의 실시간 데이터 동기화를 통해 복잡한 설정 없이 일상 일정과 메모를 하나의 캔버스 위에 통합적으로 관리하는 웹 플랫폼입니다.
+              </SummaryBox>
+              <SectionTitle>주요 기능</SectionTitle>
+              <BulletList>
+                <li>Google OAuth 및 Calendar API 연동을 통한 실시간 월별 일정 동기화</li>
+                <li>포스트잇 스타일의 카드 UI를 활용한 메모 및 할 일(Todo) 관리</li>
+                <li>월별 총급여 입력 시 4대 보험 및 세금 공제 내역 자동 산출 (SalaryView)</li>
+                <li>Supabase Realtime 기반의 1:1 관리자 문의 게시판 (InquiryBoard)</li>
+              </BulletList>
+              <SectionTitle>담당 역할</SectionTitle>
+              <BulletList>
+                <li>프론트엔드 UI/UX 설계 및 전체 컴포넌트 개발</li>
+                <li>Google OAuth 2.0 및 Google Calendar API 연동 구현</li>
+                <li>Supabase Auth 기반 사용자 회원가입/로그인 및 세션 관리</li>
+                <li>급여 및 공제 세부 금액을 시각화하는 데이터 차트 및 테이블 설계</li>
+                <li>Vercel을 활용한 서비스 배포 및 지속적 통합(CI/CD)</li>
+              </BulletList>
+              <SectionTitle>이슈 및 해결</SectionTitle>
+              <ProblemSolution>
+                <strong>이슈</strong><br />
+                구글 캘린더 실시간 연동 시 데이터 갱신 지연으로 캘린더 뷰와 메모 간의 동기화 불일치 현상 발생<br /><br />
+                <strong>해결</strong><br />
+                TanStack React Query의 캐싱 메커니즘과 Stale-While-Revalidate 전략을 활용하고, API 응답 데이터를 가공하는 로직을 커스텀 훅으로 모듈화하여 실시간 정합성 유지
+              </ProblemSolution>
+              <ButtonGroup>
+                <LinkButton href="https://github.com/susuholee/DayCanvas" target="_blank">
+                  <FaGithub /> GitHub
+                </LinkButton>
+                <LinkButton href="https://day-canvas.vercel.app" target="_blank">
+                  <FiExternalLink /> 배포
+                </LinkButton>
+              </ButtonGroup>
+            </Right>
+          </ProjectCard>
+
+
+
+
+          {/* 04 - 여행성향연구소 */}
+          <ProjectCard show={projectFilter === "all" || projectFilter === "web"}>
+            <Left>
+              <ProjectNum>04 — Personal Project</ProjectNum>
               <TitleWrapper>
                 <Title>여행성향연구소</Title>
               </TitleWrapper>
@@ -655,10 +779,10 @@ trim() 처리를 추가하고, 이메일 형식 및 닉네임 유효성 검증 �
             </Right>
           </ProjectCard>
 
-          {/* 04 - NewSive */}
+          {/* 05 - NewSive */}
           <ProjectCard show={projectFilter === "all" || projectFilter === "web"}>
             <Left>
-              <ProjectNum>04 — Personal Project</ProjectNum>
+              <ProjectNum>05 — Personal Project</ProjectNum>
               <TitleWrapper>
                 <ProjectLogo src={NewSive_logo} />
                 <Title>NewSive</Title>
@@ -725,10 +849,10 @@ trim() 처리를 추가하고, 이메일 형식 및 닉네임 유효성 검증 �
             </Right>
           </ProjectCard>
 
-          {/* 05 - Sealium */}
+          {/* 06 - Sealium */}
           <ProjectCard show={projectFilter === "all" || projectFilter === "web"}>
             <Left>
-              <ProjectNum>05 — Team Project</ProjectNum>
+              <ProjectNum>06 — Team Project</ProjectNum>
               <TitleWrapper>
                 <ProjectLogo src={Sealium_logo} />
                 <Title>Sealium</Title>
@@ -788,10 +912,10 @@ trim() 처리를 추가하고, 이메일 형식 및 닉네임 유효성 검증 �
             </Right>
           </ProjectCard>
 
-          {/* 06 - Notionary */}
+          {/* 07 - Notionary */}
           <ProjectCard show={projectFilter === "all" || projectFilter === "web"}>
             <Left>
-              <ProjectNum>06 — Team Project</ProjectNum>
+              <ProjectNum>07 — Team Project</ProjectNum>
               <TitleWrapper>
                 <ProjectLogo src={notionary_logo} />
                 <Title>Notionary</Title>
@@ -850,10 +974,10 @@ trim() 처리를 추가하고, 이메일 형식 및 닉네임 유효성 검증 �
             </Right>
           </ProjectCard>
 
-          {/* 07 - Scoop */}
+          {/* 08 - Scoop */}
           <ProjectCard show={projectFilter === "all" || projectFilter === "web"}>
             <Left>
-              <ProjectNum>07 — Team Project</ProjectNum>
+              <ProjectNum>08 — Team Project</ProjectNum>
               <TitleWrapper>
                 <ProjectLogo src={scoop} />
                 <Title>Scoop</Title>
@@ -914,10 +1038,10 @@ trim() 처리를 추가하고, 이메일 형식 및 닉네임 유효성 검증 �
             </Right>
           </ProjectCard>
 
-          {/* 08 - Node_Connect */}
+          {/* 09 - Node_Connect */}
           <ProjectCard show={projectFilter === "all" || projectFilter === "web"}>
             <Left>
-              <ProjectNum>08 — Team Project</ProjectNum>
+              <ProjectNum>09 — Team Project</ProjectNum>
               <TitleWrapper>
                 <ProjectLogo src={nodeconnect} />
                 <Title>Node_Connect</Title>
