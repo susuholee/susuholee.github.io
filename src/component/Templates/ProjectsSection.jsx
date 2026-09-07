@@ -600,6 +600,73 @@ const ProjectsSection = ({ projectFilter, setProjectFilter }) => {
           </ProjectCard>
 
 
+          {/* Suho Cafe Automation Platform */}
+          <ProjectCard show={projectFilter === "all" || projectFilter === "web"}>
+            <Left>
+              <ProjectNum>In Progress — Web Project</ProjectNum>
+              <TitleWrapper>
+                <Title>수호카페 통합 자동화 플랫폼</Title>
+              </TitleWrapper>
+              <MetaInfo>
+                <MetaChip>09.05 ~ 개발중</MetaChip>
+                <MetaChip>웹 개발</MetaChip>
+                <MetaChip>반응형 웹</MetaChip>
+              </MetaInfo>
+              <Description>
+                Suho Cafe Automation Platform — 사내 권한 관리, 문서 처리,
+                AI 고객 응대와 외부 협업 도구를 하나의 워크플로우로 연결하는 통합 자동화 플랫폼
+              </Description>
+              <InfoCard>
+                <StackTitle>기술 스택</StackTitle>
+                <TechStack>
+                  <li>React</li>
+                  <li>Node.js</li>
+                  <li>Supabase</li>
+                  <li>Supabase Auth</li>
+                  <li>pgvector</li>
+                  <li>Gemini AI</li>
+                  <li>Cookie</li>
+                  <li>bcrypt</li>
+                  <li>Styled Components</li>
+                  <li>React Query</li>
+                  <li>Vercel</li>
+                </TechStack>
+              </InfoCard>
+              <InfoCard>
+                <StackTitle>외부 서비스 연동 계획</StackTitle>
+                <TechStack>
+                  <li>GitHub</li>
+                  <li>Jira</li>
+                  <li>Discord Webhook</li>
+                  <li>Notion API</li>
+                  <li>Cron</li>
+                </TechStack>
+              </InfoCard>
+            </Left>
+            <Right>
+              <SummaryBox>
+                반복적인 사내 업무를 자동화하고, 구성원이 Trigger → Action 흐름을
+                직접 제어할 수 있는 웹 플랫폼을 개발 중입니다. 요구사항을 바탕으로
+                페이지별로 기능을 구현할 예정입니다.
+              </SummaryBox>
+              <SectionTitle>주요 기능 개발 예정</SectionTitle>
+              <BulletList>
+                <li>이메일 로그인, 팀장 - 팀원 권한 분리, 가입 대기 팀원 승인</li>
+                <li>PDF·Word·PPT 업로드 및 텍스트 추출, 사내 공지 등록과 디스코드·노션 알림 자동화</li>
+                <li>pgvector 기반 사내 문서 검색과 Gemini AI 고객 응대</li>
+                <li>대화의 핵심 문의, 조치 사항, 추가 확인 여부 자동 요약 및 중요 문의 관리자 알림</li>
+                <li>GitHub·Jira 웹훅과 Cron 기반 워크플로우, DB 적재 및 신규 입사자 온보딩 자동화</li>
+                <li>실행 성공·실패, 실행 시각 소요 시간 및 에러 로그와 가입 대기 현황을 확인하는 대시보드</li>
+              </BulletList>
+              <SectionTitle>설계 및 개발 계획</SectionTitle>
+              <BulletList>
+                <li>반응형 UI를 적용하고 페이지 단위로 순차 개발</li>
+                <li>Vercel Cron 또는 외부 Cron의 API 호출 방식으로 정기 작업 실행</li>
+                <li>서버리스 환경에 맞춘 DB 연결 재사용 및 커넥션 풀 최적화</li>
+              </BulletList>
+            </Right>
+          </ProjectCard>
+
           {/* 05 - DayCanvas */}
           <ProjectCard show={projectFilter === "all" || projectFilter === "web"}>
             <Left>
@@ -616,14 +683,6 @@ const ProjectsSection = ({ projectFilter, setProjectFilter }) => {
               <Description>
                 구글 캘린더 연동과 포스트잇 메모를 결합한 개인 맞춤형 일정 & 메모 캔버스 플랫폼
               </Description>
-              <ModernSlider slides={[
-                { image: newsive_intro },
-                { image: news },
-                { image: friend_add },
-                { image: friend_received },
-                { image: chat },
-                { image: media },
-              ]} />
               <InfoCard>
                 <StackTitle>기술 스택</StackTitle>
                 <TechStack>
